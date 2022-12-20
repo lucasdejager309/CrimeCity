@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StreetMap
 {
     public List<StreetNode> nodes = new List<StreetNode>();
@@ -11,6 +12,7 @@ public class StreetMap
     }
 }
 
+[System.Serializable]
 public class StreetNode
 {
     public Vector3 position;
@@ -29,9 +31,10 @@ public class StreetNode
     }
 }
 
+[System.Serializable]
 public class StreetSection {
-    StreetNode startNode;
-    StreetNode endNode;
+    public StreetNode startNode;
+    public StreetNode endNode;
 
     public float Length {
         get {return StreetNode.Distance(startNode, endNode);}

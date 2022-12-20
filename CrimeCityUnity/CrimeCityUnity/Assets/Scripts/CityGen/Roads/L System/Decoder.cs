@@ -36,14 +36,14 @@ public static class Decoder {
         return Action.none;
     }
 
-    public static List<KeyValuePair<Vector3, Vector3>> GetLines(string sentence, Vector3 startPosition, LSystemGenerator systemGenerator) {
-        List<KeyValuePair<Vector3, Vector3>> lines = new List<KeyValuePair<Vector3, Vector3>>();
+    public static List<StreetSection> GetLines(string sentence, Vector3 startPosition, LSystemGenerator systemGenerator) {
+        List<StreetSection> streetSections = new List<StreetSection>();
 
         Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
-        List<Vector3> nodePositions = new List<Vector3>();
+        List<StreetNode> nodes = new List<StreetNode>();
 
         Vector3 currentPos = startPosition;
-        if (!nodePositions.Contains(startPosition)) nodePositions.Add(startPosition);
+        nodes.Add(new StreetNode(currentPos));
 
         Vector3 direction = Vector3.forward;
         Vector3 tempPosition = startPosition;
@@ -72,9 +72,9 @@ public static class Decoder {
                 case Action.draw:
                     tempPosition = currentPos;
                     currentPos += direction*length;
-                    lines.Add(new KeyValuePair<Vector3, Vector3>(tempPosition, currentPos));
+                    streetSections.Add(new StreetSection(tempPosition, currentPos));
                     length *= systemGenerator.lengthModifier;
-                    nodePositions.Add(currentPos);
+                    nodes.Add(new StreetNode(currentPos));
                     break;
                 case Action.turnRight:
                     direction = Quaternion.AngleAxis(systemGenerator.GetAngle(), Vector3.up) * direction;
@@ -89,31 +89,31 @@ public static class Decoder {
             }
         }
 
-        lines = RemoveDuplicateLines(lines);
-        nodePositions = nodePositions.Distinct().ToList();
+        streetSections = RemoveDuplicateSections(streetSections);
+        nodes = nodes.Distinct().ToList();
 
-        return lines;
+        return streetSections;
     }
 
-    private static List<KeyValuePair<Vector3, Vector3>> RemoveDuplicateLines(List<KeyValuePair<Vector3, Vector3>> lines) {
-        List<KeyValuePair<Vector3, Vector3>> linesToRemove = new List<KeyValuePair<Vector3, Vector3>>();
+    private static List<StreetSection> RemoveDuplicateSections(List<StreetSection> streetSections) {
+        List<StreetSection> sectionsToRemove = new List<StreetSection>();
         
-        foreach(var line in lines) {
-            foreach(var lineToCompare in lines) {
+        foreach(StreetSection section in streetSections) {
+            foreach(var sectionToCompare in streetSections) {
                 if (
                     (
-                        (line.Key == lineToCompare.Key && line.Value == lineToCompare.Value) 
+                        (section.startNode.position == sectionToCompare.startNode.position && section.endNode.position == sectionToCompare.endNode.position) 
                         ||
-                        (line.Key == lineToCompare.Value && line.Value == lineToCompare.Key)
+                        (section.startNode.position == sectionToCompare.endNode.position && section.endNode.position == sectionToCompare.startNode.position)
                     )
                     &&
-                    (!line.Equals(lineToCompare) && !linesToRemove.Contains(lineToCompare))
+                    (!section.Equals(sectionToCompare) && !sectionsToRemove.Contains(sectionToCompare))
                 ) {
-                    linesToRemove.Add(new KeyValuePair<Vector3, Vector3>(line.Key, line.Value));
+                    sectionsToRemove.Add(new StreetSection(section.startNode.position, section.endNode.position));
                 }
             }
         }
 
-        return (lines.Except(linesToRemove)).ToList();
+        return (streetSections.Except(sectionsToRemove)).ToList();
     }
 }

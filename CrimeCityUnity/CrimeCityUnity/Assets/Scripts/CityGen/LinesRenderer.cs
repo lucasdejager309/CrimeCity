@@ -10,21 +10,21 @@ public class LinesRenderer : MonoBehaviour
 
     public List<GameObject> lineObjects = new List<GameObject>();
 
-    public void DrawLines(List<KeyValuePair<Vector3, Vector3>> lines) {
+    public void DrawLines(List<StreetSection> sections) {
         ClearLineObjects();
         
-        foreach (var kv in lines) {
+        foreach (StreetSection section in sections) {
             GameObject line = new GameObject("line");
             lineObjects.Add(line);
-            line.transform.position = kv.Key;
+            line.transform.position = section.startNode.position;
             var lineRenderer = line.AddComponent<LineRenderer>();
             lineRenderer.material = lineMaterial;
             lineRenderer.startColor = color;
             lineRenderer.endColor = color;
             lineRenderer.startWidth = width;
             lineRenderer.endWidth = width;
-            lineRenderer.SetPosition(0, kv.Key);
-            lineRenderer.SetPosition(1, kv.Value);
+            lineRenderer.SetPosition(0, section.startNode.position);
+            lineRenderer.SetPosition(1, section.endNode.position);
         }
     }
 
