@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             string sentence = systemGenerator.GenerateSentence();
-            List<StreetSection> streetSections = Decoder.GetLines(sentence, Vector3.zero, systemGenerator);
-            Debug.Log("streetSections:" + streetSections.Count + "\nSentence: " + sentence);
+            StreetMap map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator);
+            Debug.Log("streetSections: " + map.sections.Count + "\nnodes: " + map.nodes.Count + "\nSentence: " + sentence);
 
-            GetComponent<LinesRenderer>().DrawLines(streetSections);
+            GetComponent<LinesRenderer>().DrawLines(map);
+            
         }
     }
 }

@@ -22,10 +22,13 @@ MonoBehaviour:
     results:
     - F-G
   rootSentence: F
-  iterationLimit: 11
-  startLength: 1
+  iterationLimit: 8
+  startLength: 5
   lengthModifier: 1
   angle: 90
+  useRandomAngle: 0
+  minAngle: 0
+  maxAngle: 0
   keys:
   - character: 91
     action: 0

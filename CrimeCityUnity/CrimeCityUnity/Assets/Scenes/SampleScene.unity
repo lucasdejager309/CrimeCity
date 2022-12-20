@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def68b5a5ee56a845840c3e09f723bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemGenerator: {fileID: 11400000, guid: fb6d78b7573fdc84780e582793952a72, type: 2}
+  systemGenerator: {fileID: 11400000, guid: c16a2d123d1a66d48bc482d56cd1c7e2, type: 2}
 --- !u!4 &210857759
 Transform:
   m_ObjectHideFlags: 0
@@ -184,6 +184,7 @@ MonoBehaviour:
   lineMaterial: {fileID: 2100000, guid: 34af00fc486bbc544a947717d11a9ef6, type: 2}
   color: {r: 1, g: 1, b: 1, a: 0}
   width: 0.5
+  nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}
   lineObjects: []
 --- !u!1 &705507993
 GameObject:

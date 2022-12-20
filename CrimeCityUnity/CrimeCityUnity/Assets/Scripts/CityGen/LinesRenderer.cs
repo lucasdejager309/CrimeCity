@@ -7,13 +7,14 @@ public class LinesRenderer : MonoBehaviour
     public Material lineMaterial;
     public Color color;
     public float width;
+    public GameObject nodePrefab;
 
     public List<GameObject> lineObjects = new List<GameObject>();
 
-    public void DrawLines(List<StreetSection> sections) {
+    public void DrawLines(StreetMap map) {
         ClearLineObjects();
         
-        foreach (StreetSection section in sections) {
+        foreach (StreetSection section in map.sections) {
             GameObject line = new GameObject("line");
             lineObjects.Add(line);
             line.transform.position = section.startNode.position;
@@ -25,6 +26,11 @@ public class LinesRenderer : MonoBehaviour
             lineRenderer.endWidth = width;
             lineRenderer.SetPosition(0, section.startNode.position);
             lineRenderer.SetPosition(1, section.endNode.position);
+        }
+
+        foreach (StreetNode node in map.nodes) {
+            GameObject nodeObject = Instantiate(nodePrefab, node.position, Quaternion.identity);
+            lineObjects.Add(nodeObject);
         }
     }
 

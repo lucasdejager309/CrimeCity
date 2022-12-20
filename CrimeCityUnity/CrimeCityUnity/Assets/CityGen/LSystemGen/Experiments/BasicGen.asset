@@ -18,7 +18,7 @@ MonoBehaviour:
     results:
     - '[+F][-F]'
   rootSentence: '[F]--F'
-  iterationLimit: 9
+  iterationLimit: 6
   startLength: 20
   lengthModifier: 0.7
   angle: 90

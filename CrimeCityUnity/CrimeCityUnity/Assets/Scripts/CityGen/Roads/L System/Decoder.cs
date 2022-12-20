@@ -36,7 +36,7 @@ public static class Decoder {
         return Action.none;
     }
 
-    public static List<StreetSection> GetLines(string sentence, Vector3 startPosition, LSystemGenerator systemGenerator) {
+    public static StreetMap GetMap(string sentence, Vector3 startPosition, LSystemGenerator systemGenerator) {
         List<StreetSection> streetSections = new List<StreetSection>();
 
         Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
@@ -72,9 +72,11 @@ public static class Decoder {
                 case Action.draw:
                     tempPosition = currentPos;
                     currentPos += direction*length;
-                    streetSections.Add(new StreetSection(tempPosition, currentPos));
-                    length *= systemGenerator.lengthModifier;
-                    nodes.Add(new StreetNode(currentPos));
+                    if (!StreetSection.ContainsPath(streetSections, new StreetSection(tempPosition, currentPos))) {
+                        streetSections.Add(new StreetSection(tempPosition, currentPos));
+                        length *= systemGenerator.lengthModifier;
+                    }
+                    if (!StreetNode.ContainsPosition(nodes, currentPos)) nodes.Add(new StreetNode(currentPos));
                     break;
                 case Action.turnRight:
                     direction = Quaternion.AngleAxis(systemGenerator.GetAngle(), Vector3.up) * direction;
@@ -89,31 +91,10 @@ public static class Decoder {
             }
         }
 
-        streetSections = RemoveDuplicateSections(streetSections);
-        nodes = nodes.Distinct().ToList();
+        streetSections = StreetSection.Distinct(streetSections);
 
-        return streetSections;
-    }
+        nodes = StreetNode.Distinct(nodes);
 
-    private static List<StreetSection> RemoveDuplicateSections(List<StreetSection> streetSections) {
-        List<StreetSection> sectionsToRemove = new List<StreetSection>();
-        
-        foreach(StreetSection section in streetSections) {
-            foreach(var sectionToCompare in streetSections) {
-                if (
-                    (
-                        (section.startNode.position == sectionToCompare.startNode.position && section.endNode.position == sectionToCompare.endNode.position) 
-                        ||
-                        (section.startNode.position == sectionToCompare.endNode.position && section.endNode.position == sectionToCompare.startNode.position)
-                    )
-                    &&
-                    (!section.Equals(sectionToCompare) && !sectionsToRemove.Contains(sectionToCompare))
-                ) {
-                    sectionsToRemove.Add(new StreetSection(section.startNode.position, section.endNode.position));
-                }
-            }
-        }
-
-        return (streetSections.Except(sectionsToRemove)).ToList();
+        return new StreetMap(streetSections, nodes);
     }
 }

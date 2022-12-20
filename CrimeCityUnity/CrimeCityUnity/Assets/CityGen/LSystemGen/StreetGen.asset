@@ -23,7 +23,7 @@ MonoBehaviour:
     - F
     - F
   rootSentence: '[F]--F'
-  iterationLimit: 8
+  iterationLimit: 3
   startLength: 5
   lengthModifier: 1
   angle: 90
