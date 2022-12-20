@@ -90,6 +90,7 @@ public static class Decoder {
         }
 
         lines = RemoveDuplicateLines(lines);
+        nodePositions = nodePositions.Distinct().ToList();
 
         return lines;
     }
@@ -113,8 +114,6 @@ public static class Decoder {
             }
         }
 
-
-        //Debug.Log("culled " + linesToRemove.Count + "/" + lines.Count + " lines"); this is not accurate (i'm sure it's nothing to worry about)
         return (lines.Except(linesToRemove)).ToList();
     }
 }

@@ -10,21 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a3d1c56e17c0dd47a65ae7b6b5b8319, type: 3}
-  m_Name: BasicGen
+  m_Name: HighwayGen
   m_EditorClassIdentifier: 
   rules:
   - character: F
-    randomResult: 0
+    randomResult: 1
     results:
-    - '[+F][-F]'
-  rootSentence: '[F]--F'
-  iterationLimit: 9
-  startLength: 20
-  lengthModifier: 0.7
-  angle: 90
-  useRandomAngle: 0
+    - +F
+    - F
+    - F
+    - '[F][+F]'
+  rootSentence: F
+  iterationLimit: 20
+  startLength: 10
+  lengthModifier: 0.99
+  angle: 0
+  useRandomAngle: 1
   minAngle: 0
-  maxAngle: 0
+  maxAngle: 10
   keys:
   - character: 91
     action: 0

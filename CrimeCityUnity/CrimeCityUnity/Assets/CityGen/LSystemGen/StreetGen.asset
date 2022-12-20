@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a3d1c56e17c0dd47a65ae7b6b5b8319, type: 3}
-  m_Name: BasicGen2
+  m_Name: StreetGen
   m_EditorClassIdentifier: 
   rules:
   - character: F
@@ -23,12 +23,12 @@ MonoBehaviour:
     - F
     - F
   rootSentence: '[F]--F'
-  iterationLimit: 9
+  iterationLimit: 8
   startLength: 5
   lengthModifier: 1
   angle: 90
   useRandomAngle: 0
-  minAngle: 70
+  minAngle: 45
   maxAngle: 90
   keys:
   - character: 91

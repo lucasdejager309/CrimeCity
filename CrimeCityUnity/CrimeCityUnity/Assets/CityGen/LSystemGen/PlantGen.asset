@@ -23,9 +23,12 @@ MonoBehaviour:
     - F+[[X]-X]-F[-FX]+X
   rootSentence: X
   iterationLimit: 5
-  startLength: 0.3
+  startLength: 2
   lengthModifier: 1
   angle: 25
+  useRandomAngle: 0
+  minAngle: 0
+  maxAngle: 0
   keys:
   - character: 70
     action: 2
