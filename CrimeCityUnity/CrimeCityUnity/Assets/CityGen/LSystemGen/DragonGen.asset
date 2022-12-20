@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3d1c56e17c0dd47a65ae7b6b5b8319, type: 3}
+  m_Name: DragonGen
+  m_EditorClassIdentifier: 
+  rules:
+  - character: F
+    randomResult: 0
+    results:
+    - F+G
+  - character: G
+    randomResult: 0
+    results:
+    - F-G
+  rootSentence: F
+  iterationLimit: 11
+  startLength: 1
+  lengthModifier: 1
+  angle: 90
+  keys:
+  - character: 91
+    action: 0
+  - character: 93
+    action: 1
+  - character: 70
+    action: 5
+  - character: 71
+    action: 2
+  - character: 45
+    action: 3
+  - character: 43
+    action: 4
