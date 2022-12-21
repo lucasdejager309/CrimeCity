@@ -7,6 +7,7 @@ public class LinesRenderer : MonoBehaviour
     public Material lineMaterial;
     public Color color;
     public float width;
+    public bool renderNodes = false;
     public GameObject nodePrefab;
 
     public List<GameObject> lineObjects = new List<GameObject>();
@@ -15,23 +16,52 @@ public class LinesRenderer : MonoBehaviour
         ClearLineObjects();
         
         foreach (StreetSection section in map.sections) {
-            GameObject line = new GameObject("line");
-            lineObjects.Add(line);
-            line.transform.position = section.startNode.position;
-            var lineRenderer = line.AddComponent<LineRenderer>();
-            lineRenderer.material = lineMaterial;
-            lineRenderer.startColor = color;
-            lineRenderer.endColor = color;
-            lineRenderer.startWidth = width;
-            lineRenderer.endWidth = width;
-            lineRenderer.SetPosition(0, section.startNode.position);
-            lineRenderer.SetPosition(1, section.endNode.position);
+            List<Vector3> positions = new List<Vector3>();
+            positions.Add(section.startNode.position);
+            positions.Add(section.endNode.position);
+
+            lineObjects.Add(CreateLineObject(positions, color, width));
         }
 
-        foreach (StreetNode node in map.nodes) {
-            GameObject nodeObject = Instantiate(nodePrefab, node.position, Quaternion.identity);
-            lineObjects.Add(nodeObject);
+        if (renderNodes) {
+            foreach (StreetNode node in map.nodes) {
+                GameObject nodeObject = Instantiate(nodePrefab, node.position, Quaternion.identity);
+                lineObjects.Add(nodeObject);
+            }
         }
+
+        
+    }
+
+    public GameObject CreateLineObject(List<Vector3> positions, Color color, float width, float yPos = 0) {
+        GameObject line = new GameObject("line");
+        lineObjects.Add(line);
+        line.transform.position = positions[0];
+        line.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        var lineRenderer = line.AddComponent<LineRenderer>();
+        lineRenderer.alignment = LineAlignment.TransformZ;
+        lineRenderer.material = lineMaterial;
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+        lineRenderer.positionCount = positions.Count;
+        
+        for (int i = 0; i < positions.Count; i++) {
+            Vector3 positionToDraw = positions[i];
+            if (i == 0) {
+                positionToDraw -= (positions[i+1]-positions[i]).normalized*(width/2);
+            }
+            else if (i == positions.Count-1) {
+                positionToDraw -= (positions[i-1]-positions[i]).normalized*(width/2);
+            }
+            positionToDraw = new Vector3(positionToDraw.x, yPos, positionToDraw.z);
+
+            lineRenderer.SetPosition(i, positionToDraw);
+        }
+
+        return line;
     }
 
     private void ClearLineObjects() {

@@ -22,8 +22,19 @@ MonoBehaviour:
     - '[F][-F][+F]'
     - F
     - F
+    - FF
+    - FF
+    - FF
+    - FFFF
+    - X
+  - character: X
+    randomResult: 1
+    results:
+    - F
+    - +F
+    - -F
   rootSentence: '[F]--F'
-  iterationLimit: 3
+  iterationLimit: 9
   startLength: 5
   lengthModifier: 1
   angle: 90
@@ -41,3 +52,5 @@ MonoBehaviour:
     action: 3
   - character: 45
     action: 4
+  - character: 88
+    action: 5

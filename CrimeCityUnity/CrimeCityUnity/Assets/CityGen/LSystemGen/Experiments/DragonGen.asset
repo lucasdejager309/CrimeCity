@@ -22,7 +22,7 @@ MonoBehaviour:
     results:
     - F-G
   rootSentence: F
-  iterationLimit: 8
+  iterationLimit: 10
   startLength: 5
   lengthModifier: 1
   angle: 90

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 
 public static class Decoder {
@@ -50,6 +51,7 @@ public static class Decoder {
 
         float length = systemGenerator.startLength;
 
+        //decode sentence
         foreach (char c in sentence) {
             Action action = charToAction(systemGenerator.keys, c);
 
@@ -71,12 +73,23 @@ public static class Decoder {
                     break;
                 case Action.draw:
                     tempPosition = currentPos;
-                    currentPos += direction*length;
-                    if (!StreetSection.ContainsPath(streetSections, new StreetSection(tempPosition, currentPos))) {
-                        streetSections.Add(new StreetSection(tempPosition, currentPos));
-                        length *= systemGenerator.lengthModifier;
+                    currentPos += (direction*length); 
+                    //round to 2 decimals to prevent duplicates with 0.000001 difference
+                    currentPos = new Vector3((float)Math.Round(currentPos.x, 2), (float)Math.Round(currentPos.y, 2), (float)Math.Round(currentPos.z, 2));
+                    
+                    
+                    StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos);
+                    if (!StreetNode.ContainsPosition(nodes, currentPos)) {
+                        nodes.Add(sectionToAdd.endNode);
                     }
-                    if (!StreetNode.ContainsPosition(nodes, currentPos)) nodes.Add(new StreetNode(currentPos));
+                    
+                    if (!StreetSection.ContainsPath(streetSections, sectionToAdd)) {
+                        streetSections.Add(sectionToAdd);
+                    }
+
+
+                    length *= systemGenerator.lengthModifier;
+                    
                     break;
                 case Action.turnRight:
                     direction = Quaternion.AngleAxis(systemGenerator.GetAngle(), Vector3.up) * direction;
@@ -91,10 +104,20 @@ public static class Decoder {
             }
         }
 
+        //remove duplicates
         streetSections = StreetSection.Distinct(streetSections);
-
         nodes = StreetNode.Distinct(nodes);
+
+        //add connection to nodes
+        for (int i = 0; i < nodes.Count; i++) {
+            foreach (StreetSection section in streetSections) {
+                if (section.ContainsNodePosition(nodes[i].position)) {
+                    nodes[i].AddConnection(section.GetOtherNode(nodes[i]).position, nodes);
+                }
+            }
+        }
 
         return new StreetMap(streetSections, nodes);
     }
+
 }

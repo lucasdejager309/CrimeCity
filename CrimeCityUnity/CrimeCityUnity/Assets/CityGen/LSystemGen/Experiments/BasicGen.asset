@@ -17,14 +17,14 @@ MonoBehaviour:
     randomResult: 0
     results:
     - '[+F][-F]'
-  rootSentence: '[F]--F'
-  iterationLimit: 6
-  startLength: 20
+  rootSentence: F
+  iterationLimit: 7
+  startLength: 40
   lengthModifier: 0.7
-  angle: 90
-  useRandomAngle: 0
+  angle: 20
+  useRandomAngle: 1
   minAngle: 0
-  maxAngle: 0
+  maxAngle: 20
   keys:
   - character: 91
     action: 0

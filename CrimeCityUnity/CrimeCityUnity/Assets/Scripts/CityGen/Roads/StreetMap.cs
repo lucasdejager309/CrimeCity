@@ -12,104 +12,31 @@ public class StreetMap
         this.sections = sections;
         this.nodes = nodes;
     }
-}
 
-[System.Serializable]
-public class StreetNode
-{
-    public Vector3 position;
-    public List<int> connectedNodeIDs = new List<int>();
+    public List<StreetNode> GetRandomPath(int length) {
+        StreetNode startNode = nodes[Random.Range(0, nodes.Count-1)];
+        StreetNode lastNode = null;
+        StreetNode currentNode = startNode;
+        List<StreetNode> path = new List<StreetNode>();
+        path.Add(currentNode);
 
-    public StreetNode(Vector3 position) {
-        this.position = position;
-    }
+        for (int i = 0; i < length; i++) {
+            
+            List<int> options = new List<int>();
+            foreach (int id in currentNode.connectedNodeIDs) {
+                if (nodes[id] != lastNode) {
+                    options.Add(id);
+                } 
+            } 
 
-    public void AddConnection(int nodeID) {
-        connectedNodeIDs.Add(nodeID);
-    }
-
-    public static float Distance(StreetNode startNode, StreetNode endNode) {
-        return Vector3.Distance(startNode.position, endNode.position);
-    }
-
-    public static List<StreetNode> Distinct(List<StreetNode> nodes) {
-        List<StreetNode> nodesToRemove = new List<StreetNode>();
-        
-        for (int i = 0; i < nodes.Count; i++) {
-            for (int j = 0; j < nodes.Count; j++) {
-                if (i != j && SharesPosition(nodes[i], nodes[j])) {
-                    nodesToRemove.Add(nodes[j]);
-                }
-            }
+            if (options.Count > 0) {
+                lastNode = currentNode;
+                currentNode = nodes[options[Random.Range(0, options.Count-1)]];
+                path.Add(currentNode);
+            } else return path;
         }
 
-        foreach (StreetNode node in nodesToRemove) {
-            nodes.Remove(node);
-        }
-
-        return nodes;
-    }
-    
-    public static bool SharesPosition(StreetNode node1, StreetNode node2) {
-        if (node1.position == node2.position) return true;
-        else return false;
-    }
-
-    public static bool ContainsPosition(List<StreetNode> nodes, Vector3 position) {
-        foreach (StreetNode node in nodes) {
-            if (node.position == position) return true;
-        }
-        return false;
-    }
-}
-
-[System.Serializable]
-public class StreetSection {
-    public StreetNode startNode;
-    public StreetNode endNode;
-
-    public float Length {
-        get {return StreetNode.Distance(startNode, endNode);}
-    }
-
-    public StreetSection(Vector3 start, Vector3 end) {
-        startNode = new StreetNode(start);
-        endNode = new StreetNode(end);
-    }
-
-    public static List<StreetSection> Distinct(List<StreetSection> sections) {
-        List<StreetSection> sectionsToRemove = new List<StreetSection>();
-
-        for (int i = 0; i < sections.Count; i++) {
-            for (int j = 0; j < sections.Count; j++) {
-                if (i != j && ComparePath(sections[i], sections[j]) && !StreetSection.ContainsPath(sectionsToRemove, sections[j])) {
-                    sectionsToRemove.Add(sections[j]);
-                }
-            }
-        }
-
-        foreach (StreetSection section in sectionsToRemove) {
-            sections.Remove(section);
-        }
-
-        return sections;
-    }
-
-    public static bool ComparePath(StreetSection section1, StreetSection section2) {
-        if (
-            (StreetNode.SharesPosition(section1.startNode, section2.startNode) && StreetNode.SharesPosition(section1.endNode, section2.endNode))
-            ||
-            (StreetNode.SharesPosition(section1.startNode, section2.endNode) && StreetNode.SharesPosition(section1.endNode, section2.startNode))
-        ) {
-            return true;
-        } else return false;
-    }
-
-    public static bool ContainsPath(List<StreetSection> sections, StreetSection sectionToSearch) {
-        foreach (StreetSection section in sections) {
-            if (StreetSection.ComparePath(section, sectionToSearch)) return true;
-        }
-        return false;
+        return path;
     }
 }
 
