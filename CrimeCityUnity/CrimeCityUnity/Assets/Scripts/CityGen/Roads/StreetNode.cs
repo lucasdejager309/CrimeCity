@@ -8,8 +8,9 @@ public class StreetNode
     public Vector3 position;
     public List<int> connectedNodeIDs = new List<int>();
 
-    public StreetNode(Vector3 position) {
+    public StreetNode(Vector3 position, List<int> connectedNodeIDs = null) {
         this.position = position;
+        if (connectedNodeIDs != null) this.connectedNodeIDs = connectedNodeIDs;
     }
 
     public bool AddConnection(Vector3 positionToAdd, List<StreetNode> nodes) {

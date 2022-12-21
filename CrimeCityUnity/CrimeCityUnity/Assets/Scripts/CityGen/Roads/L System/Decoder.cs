@@ -88,7 +88,7 @@ public static class Decoder {
                     }
 
                     StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos, map);
-                    if (!StreetSection.ContainsPath(map.sections, sectionToAdd)) {
+                    if (!StreetSection.ContainsPath(map.sections, sectionToAdd, map)) {
                         map.sections.Add(sectionToAdd);
                     }
 
@@ -111,8 +111,8 @@ public static class Decoder {
         //add connection to nodes
         for (int i = 0; i < map.nodes.Count; i++) {
             foreach (StreetSection section in map.sections) {
-                if (section.ContainsNodePosition(map.nodes[i].position)) {
-                    map.nodes[i].AddConnection(section.GetOtherPosition(map.nodes[i].position), map.nodes);
+                if (section.ContainsNodePosition(map.nodes[i].position, map)) {
+                    map.nodes[i].AddConnection(section.GetOtherPosition(map.nodes[i].position, map), map.nodes);
                 }
             }
         }

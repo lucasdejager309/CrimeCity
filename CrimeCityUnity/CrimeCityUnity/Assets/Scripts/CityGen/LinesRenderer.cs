@@ -17,8 +17,8 @@ public class LinesRenderer : MonoBehaviour
         
         foreach (StreetSection section in map.sections) {
             List<Vector3> positions = new List<Vector3>();
-            positions.Add(section.StartNode.position);
-            positions.Add(section.EndNode.position);
+            positions.Add(section.StartNode(map).position);
+            positions.Add(section.EndNode(map).position);
 
             lineObjects.Add(CreateLineObject(positions, color, width));
         }

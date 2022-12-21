@@ -14,6 +14,16 @@ public class StreetMap
 
     }
 
+    public static StreetMap LoadMap(Save save) {
+        List<StreetNode> nodesToReturn = new List<StreetNode>();
+        foreach(var kv in save.nodes) {
+            nodesToReturn.Add(new StreetNode(Vector3S.ConvertBack(kv.Key), kv.Value));
+        }
+        
+        StreetMap map = new StreetMap(save.streetSections, nodesToReturn);
+        return map;
+    }
+
     public List<StreetNode> GetRandomPath(int length) {
         StreetNode startNode = nodes[Random.Range(0, nodes.Count-1)];
         StreetNode lastNode = null;

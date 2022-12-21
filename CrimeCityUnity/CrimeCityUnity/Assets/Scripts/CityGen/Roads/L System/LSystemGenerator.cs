@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-
-
-[CreateAssetMenu(menuName ="CityGen/SystemGenerator")]
 public class LSystemGenerator : ScriptableObject
 {
     [Header("Generation Settings")]
