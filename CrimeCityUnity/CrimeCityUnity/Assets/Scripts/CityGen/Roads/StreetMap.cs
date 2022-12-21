@@ -8,9 +8,10 @@ public class StreetMap
     public List<StreetSection> sections = new List<StreetSection>();
     public List<StreetNode> nodes = new List<StreetNode>();
 
-    public StreetMap(List<StreetSection> sections, List<StreetNode> nodes) {
-        this.sections = sections;
-        this.nodes = nodes;
+    public StreetMap(List<StreetSection> sections = null, List<StreetNode> nodes = null) {
+        if (sections != null) this.sections = sections; else sections = new List<StreetSection>();
+        if (nodes != null) this.nodes = nodes; else nodes = new List<StreetNode>();
+
     }
 
     public List<StreetNode> GetRandomPath(int length) {

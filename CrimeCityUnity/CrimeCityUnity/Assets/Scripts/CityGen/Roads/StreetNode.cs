@@ -56,9 +56,9 @@ public class StreetNode
         return false;
     }
 
-    public static int GetID(StreetNode node, List<StreetNode> nodes) {
+    public static int GetID(Vector3 pos, List<StreetNode> nodes) {
         for (int i = 0; i < nodes.Count; i++) {
-            if (nodes[i].position == node.position) {
+            if (nodes[i].position == pos) {
                 return i;
             }
         }

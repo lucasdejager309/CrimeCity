@@ -38,13 +38,12 @@ public static class Decoder {
     }
 
     public static StreetMap GetMap(string sentence, Vector3 startPosition, LSystemGenerator systemGenerator) {
-        List<StreetSection> streetSections = new List<StreetSection>();
-
         Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
-        List<StreetNode> nodes = new List<StreetNode>();
-
+        
+        StreetMap map = new StreetMap();
+        
         Vector3 currentPos = startPosition;
-        nodes.Add(new StreetNode(currentPos));
+        map.nodes.Add(new StreetNode(currentPos));
 
         Vector3 direction = Vector3.forward;
         Vector3 tempPosition = startPosition;
@@ -84,14 +83,12 @@ public static class Decoder {
                         }  
                     }
 
-                    StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos);
-                    if (!StreetNode.ContainsPosition(nodes, currentPos)) {
-                        nodes.Add(sectionToAdd.endNode);
+                    if (!StreetNode.ContainsPosition(map.nodes, currentPos)) {
+                        map.nodes.Add(new StreetNode(currentPos));
                     }
-                    
-                    if (!StreetSection.ContainsPath(streetSections, sectionToAdd)) {
-                        streetSections.Add(sectionToAdd);
-                    }
+
+                    StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos, map);
+                    map.sections.Add(sectionToAdd);
 
                     length *= systemGenerator.lengthModifier;
                     
@@ -110,19 +107,19 @@ public static class Decoder {
         }
 
         //remove duplicates
-        streetSections = StreetSection.Distinct(streetSections);
-        nodes = StreetNode.Distinct(nodes);
+        map.sections = StreetSection.Distinct(map.sections);
+        map.nodes = StreetNode.Distinct(map.nodes);
 
         //add connection to nodes
-        for (int i = 0; i < nodes.Count; i++) {
-            foreach (StreetSection section in streetSections) {
-                if (section.ContainsNodePosition(nodes[i].position)) {
-                    nodes[i].AddConnection(section.GetOtherNode(nodes[i]).position, nodes);
+        for (int i = 0; i < map.nodes.Count; i++) {
+            foreach (StreetSection section in map.sections) {
+                if (section.ContainsNodePosition(map.nodes[i].position)) {
+                    map.nodes[i].AddConnection(section.GetOtherPosition(map.nodes[i].position), map.nodes);
                 }
             }
         }
 
-        return new StreetMap(streetSections, nodes);
+        return map;
     }
 
     [System.Serializable]

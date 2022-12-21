@@ -4,29 +4,40 @@ using UnityEngine;
 
 [System.Serializable]
 public class StreetSection {
-    public StreetNode startNode;
-    public StreetNode endNode;
+    public StreetMap parentMap;
+    public int startID;
+    public int endID;
 
     public float Length {
-        get {return StreetNode.Distance(startNode, endNode);}
+        get {return Vector3.Distance(parentMap.nodes[startID].position, parentMap.nodes[endID].position);}
+    }
+    
+    public StreetNode StartNode {
+        get {return parentMap.nodes[startID];}
     }
 
-    public StreetSection(Vector3 start, Vector3 end) {
-        startNode = new StreetNode(start);
-        endNode = new StreetNode(end);
+    public StreetNode EndNode {
+        get {return parentMap.nodes[endID];}
+    }
+
+    public StreetSection(Vector3 start, Vector3 end, StreetMap parentMap) {
+        this.parentMap = parentMap;
+        for (int i = 0; i < parentMap.nodes.Count; i++) {
+            if (parentMap.nodes[i].position == start) startID = i;
+            if (parentMap.nodes[i].position == end) endID = i;
+        }
     }
 
     public bool ContainsNodePosition(Vector3 position) {
-        if (startNode.position == position || endNode.position == position) {
+        if (parentMap.nodes[startID].position == position || parentMap.nodes[endID].position == position) {
             return true;
         }
         return false;
     }
 
-    public StreetNode GetOtherNode(StreetNode node) {
-        if (startNode.position == node.position) return endNode;
-        else if (endNode.position == node.position) return startNode;
-        else return null;
+    public Vector3 GetOtherPosition (Vector3 position) {
+        if (parentMap.nodes[startID].position == position) return parentMap.nodes[endID].position;
+        else return parentMap.nodes[startID].position;
     }
 
     public static List<StreetSection> Distinct(List<StreetSection> sections) {
@@ -49,9 +60,17 @@ public class StreetSection {
 
     public static bool ComparePath(StreetSection section1, StreetSection section2) {
         if (
-            (StreetNode.SharesPosition(section1.startNode, section2.startNode) && StreetNode.SharesPosition(section1.endNode, section2.endNode))
+            (
+                section1.StartNode.position == section2.StartNode.position 
+                && 
+                section1.EndNode.position == section2.EndNode.position
+            )
             ||
-            (StreetNode.SharesPosition(section1.startNode, section2.endNode) && StreetNode.SharesPosition(section1.endNode, section2.startNode))
+            (
+                section1.StartNode.position == section2.EndNode.position 
+                && 
+                section1.EndNode.position == section2.StartNode.position
+            )
         ) {
             return true;
         } else return false;

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) {
             string sentence = systemGenerator.GenerateSentence();
             StreetMap map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator);
-
+            StreetNode.DebugNodes(map.nodes);
             GetComponent<LinesRenderer>().DrawLines(map);
         }
     }
