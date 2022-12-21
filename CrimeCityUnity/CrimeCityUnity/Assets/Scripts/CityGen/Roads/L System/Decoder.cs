@@ -78,7 +78,7 @@ public static class Decoder {
                     
                     if (systemGenerator.useBound) {
                         if ((!inBounds(currentPos, startPosition, systemGenerator.outerBound, systemGenerator.boundType))) {
-                            currentPos -= (direction*length);
+                            currentPos = tempPosition;
                             break;
                         }  
                     }
@@ -88,7 +88,9 @@ public static class Decoder {
                     }
 
                     StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos, map);
-                    map.sections.Add(sectionToAdd);
+                    if (!StreetSection.ContainsPath(map.sections, sectionToAdd)) {
+                        map.sections.Add(sectionToAdd);
+                    }
 
                     length *= systemGenerator.lengthModifier;
                     
@@ -105,10 +107,6 @@ public static class Decoder {
                     break;
             }
         }
-
-        //remove duplicates
-        map.sections = StreetSection.Distinct(map.sections);
-        map.nodes = StreetNode.Distinct(map.nodes);
 
         //add connection to nodes
         for (int i = 0; i < map.nodes.Count; i++) {

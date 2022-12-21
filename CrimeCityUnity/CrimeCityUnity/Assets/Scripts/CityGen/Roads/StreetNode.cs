@@ -26,29 +26,6 @@ public class StreetNode
         return Vector3.Distance(startNode.position, endNode.position);
     }
 
-    public static List<StreetNode> Distinct(List<StreetNode> nodes) {
-        List<StreetNode> nodesToRemove = new List<StreetNode>();
-        
-        for (int i = 0; i < nodes.Count; i++) {
-            for (int j = 0; j < nodes.Count; j++) {
-                if (i != j && SharesPosition(nodes[i], nodes[j])) {
-                    nodesToRemove.Add(nodes[j]);
-                }
-            }
-        }
-
-        foreach (StreetNode node in nodesToRemove) {
-            nodes.Remove(node);
-        }
-
-        return nodes;
-    }
-    
-    public static bool SharesPosition(StreetNode node1, StreetNode node2) {
-        if (node1.position == node2.position) return true;
-        else return false;
-    }
-
     public static bool ContainsPosition(List<StreetNode> nodes, Vector3 position) {
         foreach (StreetNode node in nodes) {
             if (node.position == position) return true;

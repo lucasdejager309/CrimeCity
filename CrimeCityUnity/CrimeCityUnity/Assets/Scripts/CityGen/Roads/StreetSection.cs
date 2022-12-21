@@ -40,24 +40,6 @@ public class StreetSection {
         else return parentMap.nodes[startID].position;
     }
 
-    public static List<StreetSection> Distinct(List<StreetSection> sections) {
-        List<StreetSection> sectionsToRemove = new List<StreetSection>();
-
-        for (int i = 0; i < sections.Count; i++) {
-            for (int j = 0; j < sections.Count; j++) {
-                if (i != j && ComparePath(sections[i], sections[j]) && !StreetSection.ContainsPath(sectionsToRemove, sections[j])) {
-                    sectionsToRemove.Add(sections[j]);
-                }
-            }
-        }
-
-        foreach (StreetSection section in sectionsToRemove) {
-            sections.Remove(section);
-        }
-
-        return sections;
-    }
-
     public static bool ComparePath(StreetSection section1, StreetSection section2) {
         if (
             (
