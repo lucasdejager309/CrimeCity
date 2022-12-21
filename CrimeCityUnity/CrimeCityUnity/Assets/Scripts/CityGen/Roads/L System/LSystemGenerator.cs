@@ -8,12 +8,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="CityGen/SystemGenerator")]
 public class LSystemGenerator : ScriptableObject
 {
-    public Rule[] rules;
+    [Header("Generation Settings")]
     public string rootSentence = null;
     [Range(0, 20)]
     public int iterationLimit = 1;
     public float startLength;
     public float lengthModifier;
+    
+    [Header("Restrictions")]
+    public bool useBound = false;
+    public Decoder.BoundType boundType = Decoder.BoundType.SQUARE;
+    public float outerBound;
+    
+    [Header("Angle")]
     [SerializeField] private float angle;
     public bool useRandomAngle;
     [Range(0, 180)]
@@ -21,6 +28,8 @@ public class LSystemGenerator : ScriptableObject
     [Range(0, 180)]
     [SerializeField] private float maxAngle;
 
+    [Header("Generation Logic")]
+    public Rule[] rules;
     [SerializeField]
     public List<Decoder.ActionKey> keys = new List<Decoder.ActionKey>();
 

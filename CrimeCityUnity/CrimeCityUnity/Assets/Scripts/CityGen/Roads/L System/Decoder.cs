@@ -74,10 +74,16 @@ public static class Decoder {
                 case Action.draw:
                     tempPosition = currentPos;
                     currentPos += (direction*length); 
-                    //round to 2 decimals to prevent duplicates with 0.000001 difference
+                    //round to 2 decimals to prevent duplicate nodes with like a 0.000001 difference
                     currentPos = new Vector3((float)Math.Round(currentPos.x, 2), (float)Math.Round(currentPos.y, 2), (float)Math.Round(currentPos.z, 2));
                     
-                    
+                    if (systemGenerator.useBound) {
+                        if ((!inBounds(currentPos, startPosition, systemGenerator.outerBound, systemGenerator.boundType))) {
+                            currentPos -= (direction*length);
+                            break;
+                        }  
+                    }
+
                     StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos);
                     if (!StreetNode.ContainsPosition(nodes, currentPos)) {
                         nodes.Add(sectionToAdd.endNode);
@@ -86,7 +92,6 @@ public static class Decoder {
                     if (!StreetSection.ContainsPath(streetSections, sectionToAdd)) {
                         streetSections.Add(sectionToAdd);
                     }
-
 
                     length *= systemGenerator.lengthModifier;
                     
@@ -118,6 +123,27 @@ public static class Decoder {
         }
 
         return new StreetMap(streetSections, nodes);
+    }
+
+    [System.Serializable]
+    public enum BoundType {
+        ROUND,
+        SQUARE
+    }
+
+    private static bool inBounds(Vector3 pos, Vector3 center, float bound, BoundType boundType = BoundType.SQUARE) {
+        switch (boundType) {
+            case (BoundType.SQUARE):
+                if (pos.x >= center.x+bound || pos.x <= center.x-bound) return false;
+                if (pos.z >= center.z+bound || pos.z <= center.z-bound) return false;
+                return true;
+            case (BoundType.ROUND):
+                if (Vector3.Distance(center, pos) >= bound) return false;
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 
 }
