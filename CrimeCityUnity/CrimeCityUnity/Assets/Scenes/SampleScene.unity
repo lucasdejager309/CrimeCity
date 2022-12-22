@@ -154,8 +154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
-  LoadFromSave: 1
+  LoadFromSave: 0
   map:
+    streets: []
     sections: []
     nodes: []
 --- !u!4 &210857759

@@ -5,49 +5,29 @@ using UnityEngine;
 [System.Serializable]
 public class StreetMap
 {
+    public List<StreetPath> streets = new List<StreetPath>();
     public List<StreetSection> sections = new List<StreetSection>();
     public List<StreetNode> nodes = new List<StreetNode>();
 
-    public StreetMap(List<StreetSection> sections = null, List<StreetNode> nodes = null) {
+    public StreetMap(List<StreetSection> sections = null, List<StreetNode> nodes = null, bool createStreets = true, List<StreetPath> streets = null) {
         if (sections != null) this.sections = sections; else sections = new List<StreetSection>();
         if (nodes != null) this.nodes = nodes; else nodes = new List<StreetNode>();
-
+        if (streets != null) this.streets = streets; else if (createStreets) streets = StreetMap.CreateStreets(sections, nodes);
     }
 
     public static StreetMap LoadMap(Save save) {
         List<StreetNode> nodesToReturn = new List<StreetNode>();
         foreach(var kv in save.nodes) {
-            nodesToReturn.Add(new StreetNode(Vector3S.ConvertBack(kv.Key), kv.Value));
+            nodesToReturn.Add(new StreetNode(Vector3S.ConvertBack(kv.Key), nodesToReturn.Count, kv.Value));
         }
         
-        StreetMap map = new StreetMap(save.streetSections, nodesToReturn);
+        StreetMap map = new StreetMap(save.streetSections, nodesToReturn, false, save.streets);
         return map;
     }
 
-    public List<StreetNode> GetRandomPath(int length) {
-        StreetNode startNode = nodes[Random.Range(0, nodes.Count-1)];
-        StreetNode lastNode = null;
-        StreetNode currentNode = startNode;
-        List<StreetNode> path = new List<StreetNode>();
-        path.Add(currentNode);
-
-        for (int i = 0; i < length; i++) {
-            
-            List<int> options = new List<int>();
-            foreach (int id in currentNode.connectedNodeIDs) {
-                if (nodes[id] != lastNode) {
-                    options.Add(id);
-                } 
-            } 
-
-            if (options.Count > 0) {
-                lastNode = currentNode;
-                currentNode = nodes[options[Random.Range(0, options.Count-1)]];
-                path.Add(currentNode);
-            } else return path;
-        }
-
-        return path;
+    public static List<StreetPath> CreateStreets(List<StreetSection> sections, List<StreetNode> nodes) {
+        
+        return null;
     }
 }
 

@@ -5,12 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class StreetNode
 {
+    public int ID {get; private set;}
+
     public Vector3 position;
     public List<int> connectedNodeIDs = new List<int>();
 
-    public StreetNode(Vector3 position, List<int> connectedNodeIDs = null) {
+    public StreetNode(Vector3 position, int ID, List<int> connectedNodeIDs = null) {
         this.position = position;
         if (connectedNodeIDs != null) this.connectedNodeIDs = connectedNodeIDs;
+        this.ID = ID;
     }
 
     public bool AddConnection(Vector3 positionToAdd, List<StreetNode> nodes) {
@@ -32,16 +35,6 @@ public class StreetNode
             if (node.position == position) return true;
         }
         return false;
-    }
-
-    public static int GetID(Vector3 pos, List<StreetNode> nodes) {
-        for (int i = 0; i < nodes.Count; i++) {
-            if (nodes[i].position == pos) {
-                return i;
-            }
-        }
-
-        return nodes.Count+1;
     }
 
     public static void DebugNodes(List<StreetNode> nodes) {

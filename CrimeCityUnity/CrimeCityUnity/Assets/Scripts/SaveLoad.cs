@@ -7,11 +7,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 [System.Serializable]
 public class Save {
     public List<StreetSection> streetSections;
+    public List<StreetPath> streets;
     public Dictionary<Vector3S, List<int>> nodes = new Dictionary<Vector3S, List<int>>();
     
     public Save(StreetMap map) {
         //StreetMap
         streetSections = map.sections;
+        streets = map.streets;
         foreach (StreetNode node in map.nodes) {
             nodes.Add(new Vector3S(node.position), node.connectedNodeIDs);
         }

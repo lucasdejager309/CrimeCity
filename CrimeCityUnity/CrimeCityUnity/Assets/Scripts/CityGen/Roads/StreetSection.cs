@@ -4,8 +4,24 @@ using UnityEngine;
 
 [System.Serializable]
 public class StreetSection {
-    public int startID;
-    public int endID;
+    public int sectionID {get; private set;}
+
+    public int startID {get;}
+    public int endID {get;}
+
+    public StreetSection(Vector3 start, Vector3 end, int ID, StreetMap parentMap) {
+        for (int i = 0; i < parentMap.nodes.Count; i++) {
+            if (parentMap.nodes[i].position == start) startID = i;
+            if (parentMap.nodes[i].position == end) endID = i;
+            sectionID = ID;
+        }
+    }
+
+    public StreetSection(int startID, int endID, int ID) {
+        this.startID = startID;
+        this.endID = endID;
+        sectionID = ID;
+    }
 
     public float Length(StreetMap map) {
         return Vector3.Distance(StartNode(map).position, EndNode(map).position);
@@ -17,13 +33,6 @@ public class StreetSection {
 
     public StreetNode EndNode(StreetMap parentMap) {
         return parentMap.nodes[endID];
-    }
-
-    public StreetSection(Vector3 start, Vector3 end, StreetMap parentMap) {
-        for (int i = 0; i < parentMap.nodes.Count; i++) {
-            if (parentMap.nodes[i].position == start) startID = i;
-            if (parentMap.nodes[i].position == end) endID = i;
-        }
     }
 
     public bool ContainsNodePosition(Vector3 position, StreetMap map) {
@@ -61,5 +70,13 @@ public class StreetSection {
             if (StreetSection.ComparePath(section, sectionToSearch, map)) return true;
         }
         return false;
+    }
+
+    public static int? GetSectionID(StreetSection section, StreetMap map) {
+        for (int i = 0; i < map.sections.Count; i++) {
+            if (ComparePath(map.sections[i], section, map)) return i;
+        }
+
+        return null;
     }
 }

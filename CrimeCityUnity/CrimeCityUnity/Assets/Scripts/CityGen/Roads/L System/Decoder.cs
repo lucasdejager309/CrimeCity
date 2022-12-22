@@ -43,7 +43,7 @@ public static class Decoder {
         StreetMap map = new StreetMap();
         
         Vector3 currentPos = startPosition;
-        map.nodes.Add(new StreetNode(currentPos));
+        map.nodes.Add(new StreetNode(currentPos, map.nodes.Count));
 
         Vector3 direction = Vector3.forward;
         Vector3 tempPosition = startPosition;
@@ -84,12 +84,12 @@ public static class Decoder {
                     }
 
                     if (!StreetNode.ContainsPosition(map.nodes, currentPos)) {
-                        map.nodes.Add(new StreetNode(currentPos));
+                        map.nodes.Add(new StreetNode(currentPos, map.nodes.Count));
                     }
 
-                    StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos, map);
+                    StreetSection sectionToAdd = new StreetSection(tempPosition, currentPos, 0, map);
                     if (!StreetSection.ContainsPath(map.sections, sectionToAdd, map)) {
-                        map.sections.Add(sectionToAdd);
+                        map.sections.Add(new StreetSection(sectionToAdd.startID, sectionToAdd.endID, map.sections.Count));
                     }
 
                     length *= systemGenerator.lengthModifier;
