@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             
-            
             if (LoadFromSave) {
                 map = StreetMap.LoadMap(SaveLoad.GetSave());
             } else {
@@ -21,6 +20,8 @@ public class GameManager : MonoBehaviour
                 SaveLoad.Save(map);
             }
             GetComponent<LinesRenderer>().DrawLines(map);
+
+            Debug.Log(map.nodes[0].GetRandomConnection(1));
         }
     }
 }

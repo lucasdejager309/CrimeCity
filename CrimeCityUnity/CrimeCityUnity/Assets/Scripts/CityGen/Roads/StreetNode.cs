@@ -26,6 +26,15 @@ public class StreetNode
         return false;
     }
 
+    public int? GetRandomConnection(int? ignore = null) {
+        List<int> options = connectedNodeIDs;
+        if (ignore != null && options.Contains((int)ignore)) {
+            options.Remove((int)ignore);
+        } 
+        if (options.Count == 0) return null;
+        return options[Random.Range(0, options.Count)];
+    }
+
     public static float Distance(StreetNode startNode, StreetNode endNode) {
         return Vector3.Distance(startNode.position, endNode.position);
     }

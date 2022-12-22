@@ -141,4 +141,12 @@ public static class Decoder {
         return false;
     }
 
+    private static List<StreetPath> Streets(StreetMap map) {
+        StreetNode startNode = map.nodes[UnityEngine.Random.Range(0, map.nodes.Count-1)];
+
+        //TODO
+
+        return null;
+    }
+
 }
