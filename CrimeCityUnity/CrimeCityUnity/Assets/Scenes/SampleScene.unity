@@ -156,8 +156,6 @@ MonoBehaviour:
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
   LoadFromSave: 1
   map:
-    streets: []
-    sections: []
     nodes: []
 --- !u!4 &210857759
 Transform:

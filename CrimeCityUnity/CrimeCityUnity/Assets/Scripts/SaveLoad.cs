@@ -6,16 +6,20 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 [System.Serializable]
 public class Save {
-    public List<StreetSection> streetSections;
-    public List<StreetPath> streets;
-    public Dictionary<Vector3S, List<int>> nodes = new Dictionary<Vector3S, List<int>>();
+    List<KeyValuePair<Vector3S, List<int>>> saveNodes = new List<KeyValuePair<Vector3S, List<int>>>();
+    
+    public StreetMap GetMap() {
+        StreetMap map = new StreetMap();
+        foreach (var node in saveNodes) {
+            map.Nodes.Add(new StreetNode(Vector3S.ConvertBack(node.Key), map.Nodes.Count, node.Value));
+        }
+
+        return map;
+    }
     
     public Save(StreetMap map) {
-        //StreetMap
-        streetSections = map.sections;
-        streets = map.streets;
-        foreach (StreetNode node in map.nodes) {
-            nodes.Add(new Vector3S(node.position), node.connectedNodeIDs);
+        foreach (StreetNode node in map.Nodes) {
+            saveNodes.Add(new KeyValuePair<Vector3S, List<int>>(new Vector3S(node.Position), node.GetConnectedNodes()));
         }
     }
 }

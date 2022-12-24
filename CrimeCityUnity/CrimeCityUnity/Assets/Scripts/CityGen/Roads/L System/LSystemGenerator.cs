@@ -3,6 +3,35 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
+[System.Serializable]
+public enum BoundType {
+    ROUND,
+    SQUARE
+}
+
+
+[System.Serializable]
+public class ActionKey {
+    public char character;
+    public Action action;
+
+    public ActionKey(char c, Action action)
+    {
+        this.character = c;
+        this.action = action;
+    }
+}
+
+[System.Serializable]
+public enum Action {
+    save,
+    load,
+    draw,
+    turnRight,
+    turnLeft,
+    none
+}
+
 public class LSystemGenerator : ScriptableObject
 {
     [Header("Generation Settings")]
@@ -14,7 +43,7 @@ public class LSystemGenerator : ScriptableObject
     
     [Header("Restrictions")]
     public bool useBound = false;
-    public Decoder.BoundType boundType = Decoder.BoundType.SQUARE;
+    public BoundType boundType = BoundType.SQUARE;
     public float outerBound;
     
     [Header("Angle")]
@@ -28,7 +57,7 @@ public class LSystemGenerator : ScriptableObject
     [Header("Generation Logic")]
     public Rule[] rules;
     [SerializeField]
-    public List<Decoder.ActionKey> keys = new List<Decoder.ActionKey>();
+    public List<ActionKey> keys = new List<ActionKey>();
 
     public string GenerateSentence(string sentence = null) {
         if (sentence == null) {
@@ -66,5 +95,30 @@ public class LSystemGenerator : ScriptableObject
         else angletoReturn = Random.Range(minAngle, maxAngle+1);
 
         return angletoReturn;
+    }
+
+    public static Action charToAction(List<ActionKey> keys, char c) {
+        foreach (var a in keys) {
+            if (a.character == c) {
+                return a.action;
+            }
+        } 
+
+        return Action.none;
+    }
+
+    public static bool InBounds(Vector3 pos, Vector3 center, float bound, BoundType boundType = BoundType.SQUARE) {
+        switch (boundType) {
+            case (BoundType.SQUARE):
+                if (pos.x >= center.x+bound || pos.x <= center.x-bound) return false;
+                if (pos.z >= center.z+bound || pos.z <= center.z-bound) return false;
+                return true;
+            case (BoundType.ROUND):
+                if (Vector3.Distance(center, pos) >= bound) return false;
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 }

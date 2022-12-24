@@ -3,52 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StreetNode
+public class StreetNode 
 {
-    public int ID {get; private set;}
+    [SerializeField] private int id;
+    public int ID {
+        get {return id;}
+    }
 
-    public Vector3 position;
-    public List<int> connectedNodeIDs = new List<int>();
+    [SerializeField] List<int> connectedNodes = new List<int>();
 
-    public StreetNode(Vector3 position, int ID, List<int> connectedNodeIDs = null) {
+    [SerializeField] Vector3 position;
+    public Vector3 Position {
+        get {return position;}
+    }
+
+    public StreetNode(Vector3 position, int ID, List<int> connectedNodes = null) {
         this.position = position;
-        if (connectedNodeIDs != null) this.connectedNodeIDs = connectedNodeIDs;
-        this.ID = ID;
+        id = ID;
+        if (connectedNodes != null) this.connectedNodes = connectedNodes;
     }
 
-    public bool AddConnection(Vector3 positionToAdd, List<StreetNode> nodes) {
-        for (int i = 0; i < nodes.Count; i++) {
-            if (nodes[i].position == positionToAdd) {
-                if (!connectedNodeIDs.Contains(i)) connectedNodeIDs.Add(i);
-                return true;
-            }
-        }
-        return false;
+    public void SetID(int newID) {
+        id = newID;
     }
 
-    public int? GetRandomConnection(int? ignore = null) {
-        List<int> options = connectedNodeIDs;
-        if (ignore != null && options.Contains((int)ignore)) {
-            options.Remove((int)ignore);
+    public List<int> GetConnectedNodes() {
+        return connectedNodes;
+    }
+
+    public bool AddConnectedNode(int nodeID) {
+        if (!connectedNodes.Contains(nodeID)) {
+            connectedNodes.Add(nodeID);
+            return true;
         } 
-        if (options.Count == 0) return null;
-        return options[Random.Range(0, options.Count)];
+        return false;
     }
 
-    public static float Distance(StreetNode startNode, StreetNode endNode) {
-        return Vector3.Distance(startNode.position, endNode.position);
-    }
-
-    public static bool ContainsPosition(List<StreetNode> nodes, Vector3 position) {
-        foreach (StreetNode node in nodes) {
-            if (node.position == position) return true;
+    public bool RemoveConnectedNode(int nodeID) {
+        if (!connectedNodes.Contains(nodeID)) {
+            connectedNodes.Remove(nodeID);
+            return true;
         }
         return false;
     }
 
-    public static void DebugNodes(List<StreetNode> nodes) {
-        for (int i = 0; i < nodes.Count; i++) {
-            Debug.Log("ID: " + i + "\npos: " + nodes[i].position + "\n connections: " + nodes[i].connectedNodeIDs.Count);
+    public int GetRandomConnectedNode() {
+        return connectedNodes[Random.Range(0, connectedNodes.Count-1)];
+    }
+
+    public void SetPosition(Vector3 newPos) {
+        position = newPos;
+    }
+
+    public static int? GetIDofPos(Vector3 pos, List<StreetNode> nodes) {
+        foreach (StreetNode node in nodes) {
+            if (node.position == pos) return node.ID;
         }
+        return null;
     }
 }

@@ -13,15 +13,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) {
             
             if (LoadFromSave) {
-                map = StreetMap.LoadMap(SaveLoad.GetSave());
+                map = SaveLoad.GetSave().GetMap();
             } else {
                 string sentence = systemGenerator.GenerateSentence();
                 map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator);
                 SaveLoad.Save(map);
             }
-            GetComponent<LinesRenderer>().DrawLines(map);
-
-            Debug.Log(map.nodes[0].GetRandomConnection(1));
+            GetComponent<LinesRenderer>().DrawLines(map.Nodes, 0.5f);
         }
     }
 }

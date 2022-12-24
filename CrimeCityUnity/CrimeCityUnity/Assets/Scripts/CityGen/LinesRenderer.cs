@@ -12,25 +12,23 @@ public class LinesRenderer : MonoBehaviour
 
     public List<GameObject> lineObjects = new List<GameObject>();
 
-    public void DrawLines(StreetMap map) {
+    public void DrawLines(List<StreetNode> nodes, float yPos = 0) {
         ClearLineObjects();
         
-        foreach (StreetSection section in map.sections) {
-            List<Vector3> positions = new List<Vector3>();
-            positions.Add(section.StartNode(map).position);
-            positions.Add(section.EndNode(map).position);
+        List<KeyValuePair<Vector3, Vector3>> drawnLines = new List<KeyValuePair<Vector3, Vector3>>();
 
-            lineObjects.Add(CreateLineObject(positions, color, width));
+        foreach (StreetNode node in nodes) {
+            foreach (int connectedNode in node.GetConnectedNodes()) {
+                if (!ContainsLine(node.Position, nodes[connectedNode].Position, drawnLines)) {
+                    List<Vector3> positions = new List<Vector3>();
+                    positions.Add(node.Position);
+                    positions.Add(nodes[connectedNode].Position);
+
+                    CreateLineObject(positions, color, width, yPos);
+                    drawnLines.Add(new KeyValuePair<Vector3, Vector3>(node.Position, nodes[connectedNode].Position));
+                }
+            }   
         }
-
-        if (renderNodes) {
-            foreach (StreetNode node in map.nodes) {
-                GameObject nodeObject = Instantiate(nodePrefab, node.position, Quaternion.identity);
-                lineObjects.Add(nodeObject);
-            }
-        }
-
-        
     }
 
     public GameObject CreateLineObject(List<Vector3> positions, Color color, float width, float yPos = 0) {
@@ -70,5 +68,16 @@ public class LinesRenderer : MonoBehaviour
         }
 
         lineObjects.Clear();
+    }
+
+    private bool ContainsLine(Vector3 pos1, Vector3 pos2, List<KeyValuePair<Vector3, Vector3>> lines) {
+        foreach (var line in lines) {
+            if (
+                (line.Key == pos1 && line.Value == pos2)
+                ||
+                (line.Key == pos2 && line.Value == pos1)
+            ) return true;
+        }
+        return false;
     }
 }
