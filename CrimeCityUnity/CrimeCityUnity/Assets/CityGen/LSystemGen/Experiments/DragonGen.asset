@@ -16,6 +16,7 @@ MonoBehaviour:
   iterationLimit: 11
   startLength: 5
   lengthModifier: 1
+  generateStreets: 1
   useBound: 0
   boundType: 1
   outerBound: 0

@@ -13,7 +13,6 @@ public class LinesRenderer : MonoBehaviour
     public List<GameObject> lineObjects = new List<GameObject>();
 
     public void DrawNodes(List<Node> nodes, float yPos = 0) {
-        ClearLineObjects();
         
         List<KeyValuePair<Vector3, Vector3>> drawnLines = new List<KeyValuePair<Vector3, Vector3>>();
 
@@ -33,6 +32,17 @@ public class LinesRenderer : MonoBehaviour
                     drawnLines.Add(new KeyValuePair<Vector3, Vector3>(node.Position, nodes[connectedNode].Position));
                 }
             }   
+        }
+    }
+
+    public void DrawPaths(StreetMap map, float yPos = 0, Color? color = null, float? width = null) {
+        
+        if (color == null) color = this.color;
+        if (width == null) width = this.width;
+
+        foreach(StreetPath path in map.Streets) {
+            
+            DrawPath(path, map.Nodes, (Color)color, (float)width, yPos);
         }
     }
 
@@ -78,7 +88,7 @@ public class LinesRenderer : MonoBehaviour
         return line;
     }
 
-    private void ClearLineObjects() {
+    public void ClearLineObjects() {
         foreach(GameObject obj in lineObjects) {
             Destroy(obj);
         }

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: BasicGen
   m_EditorClassIdentifier: 
   rootSentence: F
-  iterationLimit: 6
+  iterationLimit: 3
   startLength: 80
   lengthModifier: 0.7
+  generateStreets: 1
   useBound: 0
   boundType: 1
   outerBound: 0
-  angle: 80
+  angle: 90
   useRandomAngle: 0
   minAngle: 20
   maxAngle: 60

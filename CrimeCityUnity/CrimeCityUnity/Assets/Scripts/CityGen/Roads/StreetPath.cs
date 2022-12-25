@@ -19,8 +19,23 @@ public class StreetPath
         this.connectionsIDs = connectionIDs;
     }
 
+    public StreetPath(List<int> nodeIDs) {
+        this.nodeIDs = nodeIDs;
+    }
+
+    public bool ContainsNodes(List<int> nodes) {
+        bool containsNodes = true;
+        foreach (int n in nodes) {
+            if (!nodeIDs.Contains(n)) containsNodes = false;
+        }
+
+        return containsNodes;
+    }
+
     public static StreetPath GetStreet(StreetMap map, int start, Vector3? direction = null) {        
         List<int> pathNodes = new List<int>();
+        List<int> usedNodes = new List<int>();
+        Dictionary<int, List<int>> newPointsToGenerate = new Dictionary<int, List<int>>();
         
         int? previous = null;
         int current = map.Nodes[start].ID;
@@ -40,7 +55,7 @@ public class StreetPath
             if (map.Nodes[current].GetNodeInDirection(((Vector3)direction), map.Nodes) != null) {
                 //IF STRAIGHT CONNECTION
                 possibleNode = map.Nodes[current].GetNodeInDirection(((Vector3)direction), map.Nodes);
-
+            
             } else if (map.Nodes[current].GetConnectedNodes().Count == 2) {
                 //IF NO STRAIGHT CONNECTION
                 
@@ -59,16 +74,28 @@ public class StreetPath
                 current = (int)possibleNode;
                 direction = (map.Nodes[current].Position - map.Nodes[(int)previous].Position);
                 pathNodes.Add((int)possibleNode);
+                usedNodes.Add((int)possibleNode);
             }
         } 
 
-        List<int> pathConnections = new List<int>();
+        foreach (int n in pathNodes) {
+            //Get unused connection nodes at intersections
+            List<int> connectedNodesToAdd = new List<int>();
+            foreach (int c in map.Nodes[current].GetConnectedNodes()) {
+                if (!usedNodes.Contains(c)) {
+                    connectedNodesToAdd.Add(c);
+                }
+            }
+            if (!newPointsToGenerate.ContainsKey(current)) {
+                newPointsToGenerate.Add(current, connectedNodesToAdd);
+            } else {
+                foreach (int i in connectedNodesToAdd) {
+                    newPointsToGenerate[current].Add(i);
+                }
+            }
+        }
 
-        //TODO ADD CONNECTIONS
-
-        // Debug.Log(pathNodes.Count + " " + pathConnections.Count);
-
-        return new StreetPath(pathNodes, pathConnections);
+        return new StreetPath(pathNodes);
     }
     
 }

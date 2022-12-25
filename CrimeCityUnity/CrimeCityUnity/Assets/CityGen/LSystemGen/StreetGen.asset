@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: StreetGen
   m_EditorClassIdentifier: 
   rootSentence: '[F]--F'
-  iterationLimit: 6
+  iterationLimit: 11
   startLength: 10
   lengthModifier: 1
+  generateStreets: 1
   useBound: 1
-  boundType: 0
+  boundType: 1
   outerBound: 50
   angle: 90
   useRandomAngle: 0

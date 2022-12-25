@@ -12,6 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3d1c56e17c0dd47a65ae7b6b5b8319, type: 3}
   m_Name: PlantGen
   m_EditorClassIdentifier: 
+  rootSentence: X
+  iterationLimit: 5
+  startLength: 2
+  lengthModifier: 1
+  generateStreets: 1
+  useBound: 0
+  boundType: 1
+  outerBound: 0
+  angle: 25
+  useRandomAngle: 0
+  minAngle: 0
+  maxAngle: 0
   rules:
   - character: F
     randomResult: 0
@@ -21,14 +33,6 @@ MonoBehaviour:
     randomResult: 0
     results:
     - F+[[X]-X]-F[-FX]+X
-  rootSentence: X
-  iterationLimit: 5
-  startLength: 2
-  lengthModifier: 1
-  angle: 25
-  useRandomAngle: 0
-  minAngle: 0
-  maxAngle: 0
   keys:
   - character: 70
     action: 2
