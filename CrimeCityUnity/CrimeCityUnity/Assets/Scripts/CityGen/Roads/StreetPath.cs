@@ -21,7 +21,6 @@ public class StreetPath
 
     public static StreetPath GetStreet(StreetMap map, int start, Vector3? direction = null) {        
         List<int> pathNodes = new List<int>();
-        List<int> usedNodes = new List<int>();
         
         int? previous = null;
         int current = map.Nodes[start].ID;
@@ -29,37 +28,38 @@ public class StreetPath
         while (true) {
             if (!pathNodes.Contains(current)) {
                 pathNodes.Add(current);
-                usedNodes.Add(current);
             }
-            int? possibleNode;
+            
             //IF DIRECTION IS GIVEN FIND STRAIGHT CONNECTION
             if (direction == null) {
-                possibleNode = map.Nodes[current].GetRandomConnectedNode();
-            } else possibleNode = map.Nodes[current].GetNodeInDirection(((Vector3)direction), map.Nodes);
+                direction = (map.Nodes[map.Nodes[current].GetRandomConnectedNode()].Position - map.Nodes[current].Position);
+            }
 
+            int? possibleNode = null;
 
-            if (possibleNode != null) {
+            if (map.Nodes[current].GetNodeInDirection(((Vector3)direction), map.Nodes) != null) {
                 //IF STRAIGHT CONNECTION
-                
-                usedNodes.Add((int)possibleNode);
-                previous = current;
-                current = (int)possibleNode;
-                direction = (map.Nodes[current].Position - map.Nodes[(int)previous].Position);
+                possibleNode = map.Nodes[current].GetNodeInDirection(((Vector3)direction), map.Nodes);
+
             } else if (map.Nodes[current].GetConnectedNodes().Count == 2) {
                 //IF NO STRAIGHT CONNECTION
                 
                 foreach (int n in map.Nodes[current].GetConnectedNodes()) {
-                    if (!usedNodes.Contains(n)) {
-                        pathNodes.Add((int)n);
-
-                        usedNodes.Add(n);
-                        previous = current;
-                        current = n;
-                        direction = (map.Nodes[current].Position - map.Nodes[(int)previous].Position);
+                    if (previous != n) {
+                        possibleNode = n;
                     }
                 }
                 
-            } else break;
+            } 
+
+            if (possibleNode == null) {
+                break;
+            } else {
+                previous = current;
+                current = (int)possibleNode;
+                direction = (map.Nodes[current].Position - map.Nodes[(int)previous].Position);
+                pathNodes.Add((int)possibleNode);
+            }
         } 
 
         List<int> pathConnections = new List<int>();
