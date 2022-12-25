@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3d1c56e17c0dd47a65ae7b6b5b8319, type: 3}
   m_Name: DragonGen
   m_EditorClassIdentifier: 
+  rootSentence: F
+  iterationLimit: 11
+  startLength: 5
+  lengthModifier: 1
+  useBound: 0
+  boundType: 1
+  outerBound: 0
+  angle: 90
+  useRandomAngle: 0
+  minAngle: 0
+  maxAngle: 0
   rules:
   - character: F
     randomResult: 0
@@ -21,14 +32,6 @@ MonoBehaviour:
     randomResult: 0
     results:
     - F-G
-  rootSentence: F
-  iterationLimit: 10
-  startLength: 5
-  lengthModifier: 1
-  angle: 90
-  useRandomAngle: 0
-  minAngle: 0
-  maxAngle: 0
   keys:
   - character: 91
     action: 0

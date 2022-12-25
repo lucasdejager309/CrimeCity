@@ -9,10 +9,12 @@ public static class Decoder
         
         Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
 
-        List<StreetNode> nodes = new List<StreetNode>();
+        List<Node> nodes = new List<Node>();
+        List<NodeConnection> connections = new List<NodeConnection>();
+        int nodeconnectionID = 0;
 
         Vector3 currentPos = startPos;
-        nodes.Add(new StreetNode(currentPos, nodes.Count));
+        nodes.Add(new Node(currentPos, nodes.Count));
 
         Vector3 direction = Vector3.forward;
         Vector3 tempPos = startPos;
@@ -55,23 +57,29 @@ public static class Decoder
                     int node2ID;
                     int? tempID;
 
-                    tempID = StreetNode.GetIDofPos(currentPos, nodes);
+                    tempID = Node.GetIDofPos(currentPos, nodes);
                     if (tempID == null) {
                         node1ID = nodes.Count;
-                        nodes.Add(new StreetNode(currentPos, node1ID));
+                        nodes.Add(new Node(currentPos, node1ID));
                     } else {
                         node1ID = (int)tempID;
                     }
-                    tempID = StreetNode.GetIDofPos(tempPos, nodes);
+                    tempID = Node.GetIDofPos(tempPos, nodes);
                     if (tempID == null) {
                         node2ID = nodes.Count;
-                        nodes.Add(new StreetNode(tempPos, node2ID));
+                        nodes.Add(new Node(tempPos, node2ID));
                     } else {
                         node2ID = (int)tempID;
                     }
 
                     nodes[node1ID].AddConnectedNode(node2ID);
                     nodes[node2ID].AddConnectedNode(node1ID);
+
+                    NodeConnection connectionToAdd = new NodeConnection(nodeconnectionID, node1ID, node2ID, nodes);
+                    nodeconnectionID++;
+                    if (!(connections.Contains(connectionToAdd)) || !(NodeConnection.GetConnectionBetween(connections, node1ID, node2ID) == null)) {
+                        connections.Add(connectionToAdd);
+                    }
 
                     length *= generator.lengthModifier;
 
@@ -84,7 +92,7 @@ public static class Decoder
                     break;
             }
         }
-
-        return new StreetMap(nodes);
+        
+        return new StreetMap(nodes, connections, generator.generateStreets);
     }
 }

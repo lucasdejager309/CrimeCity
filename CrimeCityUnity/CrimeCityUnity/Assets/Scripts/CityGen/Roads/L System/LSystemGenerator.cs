@@ -40,6 +40,7 @@ public class LSystemGenerator : ScriptableObject
     public int iterationLimit = 1;
     public float startLength;
     public float lengthModifier;
+    public bool generateStreets = false;
     
     [Header("Restrictions")]
     public bool useBound = false;

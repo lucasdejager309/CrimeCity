@@ -12,12 +12,17 @@ public class LinesRenderer : MonoBehaviour
 
     public List<GameObject> lineObjects = new List<GameObject>();
 
-    public void DrawLines(List<StreetNode> nodes, float yPos = 0) {
+    public void DrawNodes(List<Node> nodes, float yPos = 0) {
         ClearLineObjects();
         
         List<KeyValuePair<Vector3, Vector3>> drawnLines = new List<KeyValuePair<Vector3, Vector3>>();
 
-        foreach (StreetNode node in nodes) {
+        foreach (Node node in nodes) {
+            if (renderNodes) {
+                GameObject nodeObject = Instantiate(nodePrefab, node.Position, Quaternion.identity);
+                lineObjects.Add(nodeObject);
+            }
+            
             foreach (int connectedNode in node.GetConnectedNodes()) {
                 if (!ContainsLine(node.Position, nodes[connectedNode].Position, drawnLines)) {
                     List<Vector3> positions = new List<Vector3>();
@@ -29,6 +34,17 @@ public class LinesRenderer : MonoBehaviour
                 }
             }   
         }
+    }
+
+    public void DrawPath(StreetPath path, List<Node> nodes, Color color, float width, float yPos = 0) {
+        List<Vector3> positions = new List<Vector3>();
+        
+        if (path.NodeIDs.Count > 1) {
+            foreach (int id in path.NodeIDs) {
+                positions.Add(nodes[id].Position);
+            }
+            CreateLineObject(positions, color, width, yPos);
+        }   
     }
 
     public GameObject CreateLineObject(List<Vector3> positions, Color color, float width, float yPos = 0) {

@@ -157,6 +157,7 @@ MonoBehaviour:
   LoadFromSave: 1
   map:
     nodes: []
+    streets: []
 --- !u!4 &210857759
 Transform:
   m_ObjectHideFlags: 0
