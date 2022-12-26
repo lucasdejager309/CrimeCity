@@ -93,6 +93,6 @@ public static class Decoder
             }
         }
         
-        return new StreetMap(nodes, connections, generator.generateStreets);
+        return new StreetMap(nodes, connections);
     }
 }

@@ -9,18 +9,19 @@ public class StreetPath
     public List<int> NodeIDs {
         get {return nodeIDs;}
     }
-    [SerializeField] List<int> connectionsIDs = new List<int>();
-    public List<int> ConnectionsIDs {
-        get {return connectionsIDs;}
-    }
-
-    public StreetPath(List<int> nodeIDs, List<int> connectionIDs) {
+    public void SetNodeIDs(List<int> nodeIDs) {
         this.nodeIDs = nodeIDs;
-        this.connectionsIDs = connectionIDs;
     }
+    public float length { get; private set; }
+    public void SetLength(float length) {
+        this.length = length;
+    } 
 
-    public StreetPath(List<int> nodeIDs) {
-        this.nodeIDs = nodeIDs;
+
+
+    public StreetPath(List<int> nodeIDs, List<Node> mapNodes) {
+        SetNodeIDs(nodeIDs);
+        SetLength(CalculateLength(mapNodes));
     }
 
     public bool ContainsNodes(List<int> nodes) {
@@ -32,7 +33,22 @@ public class StreetPath
         return containsNodes;
     }
 
-    public static StreetPath GetStreet(StreetMap map, int start, Vector3? direction = null) {        
+    public float CalculateLength(List<Node> nodes) {
+            float length = 0;
+
+            int? previous = null;
+            int current = nodeIDs[0];
+
+            foreach (int n in nodeIDs) {
+                previous = current;
+                current = n;
+                length += Vector3.Distance(nodes[current].Position, nodes[(int)previous].Position);
+            }
+
+            return length;
+    }
+
+    public static Road GetStreet(StreetMap map, int start, Vector3? direction = null) {        
         List<int> pathNodes = new List<int>();
         List<int> usedNodes = new List<int>();
         Dictionary<int, List<int>> newPointsToGenerate = new Dictionary<int, List<int>>();
@@ -95,7 +111,7 @@ public class StreetPath
             }
         }
 
-        return new StreetPath(pathNodes);
+        return new Road(pathNodes, map.Nodes);
     }
     
 }

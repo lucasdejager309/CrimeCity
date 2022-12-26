@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
             
             GetComponent<LinesRenderer>().ClearLineObjects();
             GetComponent<LinesRenderer>().DrawPaths(map, 0f);
-            //GetComponent<LinesRenderer>().DrawNodes(map.Nodes, 0f);
         }
     }
 }

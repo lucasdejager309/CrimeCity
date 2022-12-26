@@ -14,29 +14,21 @@ public class StreetMap
     public List<Node> Nodes {
         get {return nodes;}
     }
-    [SerializeField] List<StreetPath> streets = new List<StreetPath>();
-    public List<StreetPath> Streets {
+    [SerializeField] List<Road> streets = new List<Road>();
+    public List<Road> Streets {
         get {return streets;}
     }
     
     public StreetMap() {}
 
-    public StreetMap(List<Node> nodes, List<NodeConnection> connections, bool generateStreets) {
+    public StreetMap(List<Node> nodes, List<NodeConnection> connections, List<Road> streets = null) {
         this.nodes = nodes;
         this.connections = connections;
-        if (generateStreets) this.streets = StreetMap.GetStreets(this);
+        if (streets == null) this.streets = StreetMap.GetStreets(this);
     }
 
-    // public static List<int> GetEnds(StreetMap map) {
-    //     List<int> endIDs = new List<int>();
-    //     foreach (Node node in map.Nodes) {
-    //         if (node.GetConnectedNodes().Count == 1) endIDs.Add(node.ID);
-    //     }
-    //     return endIDs;
-    // }
-
-    public static List<StreetPath> GetStreets(StreetMap map) {
-        List<StreetPath> streets = new List<StreetPath>();
+    public static List<Road> GetStreets(StreetMap map) {
+        List<Road> streets = new List<Road>();
         
         //find dead ends
         List<int> deadEnds = new List<int>();
@@ -50,9 +42,9 @@ public class StreetMap
         List<int> ignore = new List<int>();
         foreach (int n in deadEnds) {
             if (!ignore.Contains(n)) {
-                StreetPath path = StreetPath.GetStreet(map, n);
-                ignore.Add(path.NodeIDs.Last());
-                streets.Add(path);
+                Road road = StreetPath.GetStreet(map, n);
+                ignore.Add(road.NodeIDs.Last());
+                streets.Add(road);
             }
         }
 
@@ -64,9 +56,17 @@ public class StreetMap
                 }
                 direction = direction.normalized;
 
-                StreetPath path = StreetPath.GetStreet(map, n, direction);
-                ignore.Add(path.NodeIDs.Last());
-                streets.Add(path);
+                Road road = StreetPath.GetStreet(map, n, direction);
+                ignore.Add(road.NodeIDs.Last());
+                streets.Add(road);
+            }
+        }
+
+        for(int i = 0; i < streets.Count; i++) {
+            streets[i].SetID(i);
+
+            foreach (int n in streets[i].NodeIDs) {
+                map.nodes[n].StreetsWithNode.Add(streets[i].ID);
             }
         }
         

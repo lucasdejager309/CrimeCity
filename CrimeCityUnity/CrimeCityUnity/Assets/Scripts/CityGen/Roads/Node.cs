@@ -17,6 +17,8 @@ public class Node
         get {return Vector3S.ConvertBack(position);}
     }
 
+    [SerializeField] public List<int> StreetsWithNode = new List<int>();
+
     public Node(Vector3 position, int ID, List<int> connectedNodes = null) {
         this.position = new Vector3S(position);
         id = ID;
