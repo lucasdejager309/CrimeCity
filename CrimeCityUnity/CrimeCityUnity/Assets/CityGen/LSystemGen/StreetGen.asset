@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StreetGen
   m_EditorClassIdentifier: 
   rootSentence: '[F]--F'
-  iterationLimit: 9
-  startLength: 10
+  iterationLimit: 10
+  startLength: 4
   lengthModifier: 1
   generateStreets: 1
   useBound: 1
@@ -36,18 +36,27 @@ MonoBehaviour:
     - F
     - FF
     - FF
-    - FF
-    - FFFF
+    - FFF
+    - FFF
   keys:
   - character: 91
     action: 0
+    times: 1
   - character: 93
     action: 1
+    times: 1
   - character: 70
     action: 2
+    times: 2
   - character: 43
     action: 3
+    times: 1
   - character: 45
     action: 4
+    times: 1
   - character: 88
     action: 5
+    times: 1
+  - character: 65
+    action: 2
+    times: 4

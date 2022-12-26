@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LinesRenderer : MonoBehaviour
+public class MapRenderer : MonoBehaviour
 {
     public Material lineMaterial;
     public Color color;
@@ -12,7 +12,7 @@ public class LinesRenderer : MonoBehaviour
 
     public List<GameObject> lineObjects = new List<GameObject>();
 
-    public void DrawNodes(List<Node> nodes, float yPos = 0) {
+    public void DrawSections(List<Node> nodes, float yPos = 0) {
         
         List<KeyValuePair<Vector3, Vector3>> drawnLines = new List<KeyValuePair<Vector3, Vector3>>();
 
@@ -32,6 +32,13 @@ public class LinesRenderer : MonoBehaviour
                     drawnLines.Add(new KeyValuePair<Vector3, Vector3>(node.Position, nodes[connectedNode].Position));
                 }
             }   
+        }
+    }
+
+    public void DrawNodes(List<Node> nodes, float ypos = 0) {
+        foreach (Node n in nodes) {
+            GameObject nodeObject = Instantiate(nodePrefab, n.Position, Quaternion.identity);
+            lineObjects.Add(nodeObject);
         }
     }
 

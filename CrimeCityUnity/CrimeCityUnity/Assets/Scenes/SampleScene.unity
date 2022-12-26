@@ -188,7 +188,7 @@ MonoBehaviour:
   lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 0, g: 1, b: 0.92156863, a: 1}
   width: 1
-  renderNodes: 0
+  renderNodes: 1
   nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}
   lineObjects: []
 --- !u!1 &705507993

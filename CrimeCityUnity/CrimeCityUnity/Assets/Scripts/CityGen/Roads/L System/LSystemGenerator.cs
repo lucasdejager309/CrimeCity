@@ -14,11 +14,13 @@ public enum BoundType {
 public class ActionKey {
     public char character;
     public Action action;
+    public int times = 1;
 
-    public ActionKey(char c, Action action)
+    public ActionKey(char c, Action action, int times = 1)
     {
         this.character = c;
         this.action = action;
+        this.times = times;
     }
 }
 
@@ -98,14 +100,14 @@ public class LSystemGenerator : ScriptableObject
         return angletoReturn;
     }
 
-    public static Action charToAction(List<ActionKey> keys, char c) {
+    public static ActionKey charToAction(List<ActionKey> keys, char c) {
         foreach (var a in keys) {
             if (a.character == c) {
-                return a.action;
+                return a;
             }
         } 
 
-        return Action.none;
+        return null;
     }
 
     public static bool InBounds(Vector3 pos, Vector3 center, float bound, BoundType boundType = BoundType.SQUARE) {

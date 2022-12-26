@@ -20,9 +20,12 @@ public class GameManager : MonoBehaviour
                 map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator);
                 SaveLoad.Save(map);
             }
-            
-            GetComponent<LinesRenderer>().ClearLineObjects();
-            GetComponent<LinesRenderer>().DrawPaths(map, 0f);
+
+            MapRenderer renderer = GetComponent<MapRenderer>();
+
+            renderer.ClearLineObjects();
+            if (renderer.renderNodes) renderer.DrawNodes(map.Nodes);
+            renderer.DrawPaths(map, 0f);
         }
     }
 }

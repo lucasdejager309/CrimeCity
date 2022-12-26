@@ -36,13 +36,19 @@ MonoBehaviour:
   keys:
   - character: 70
     action: 2
+    times: 1
   - character: 88
     action: 5
+    times: 1
   - character: 45
     action: 3
+    times: 1
   - character: 43
     action: 4
+    times: 1
   - character: 91
     action: 0
+    times: 1
   - character: 93
     action: 1
+    times: 1
