@@ -10,8 +10,6 @@ public static class Decoder
         Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
 
         List<Node> nodes = new List<Node>();
-        List<NodeConnection> connections = new List<NodeConnection>();
-        int nodeconnectionID = 0;
 
         Vector3 currentPos = startPos;
         nodes.Add(new Node(currentPos, nodes.Count));
@@ -76,12 +74,6 @@ public static class Decoder
                         nodes[node1ID].AddConnectedNode(node2ID);
                         nodes[node2ID].AddConnectedNode(node1ID);
 
-                        NodeConnection connectionToAdd = new NodeConnection(nodeconnectionID, node1ID, node2ID, nodes);
-                        nodeconnectionID++;
-                        if (!(connections.Contains(connectionToAdd)) || !(NodeConnection.GetConnectionBetween(connections, node1ID, node2ID) == null)) {
-                            connections.Add(connectionToAdd);
-                        }
-
                         length *= generator.lengthModifier;
 
                         break;
@@ -96,6 +88,6 @@ public static class Decoder
             
         }
         
-        return new StreetMap(nodes, connections);
+        return new StreetMap(nodes);
     }
 }

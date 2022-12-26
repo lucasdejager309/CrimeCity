@@ -6,10 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class StreetMap 
 {
-    List<NodeConnection> connections = new List<NodeConnection>();
-    public List<NodeConnection> Connections {
-        get {return connections;}
-    }
     [SerializeField] List<Node> nodes = new List<Node>();
     public List<Node> Nodes {
         get {return nodes;}
@@ -21,9 +17,8 @@ public class StreetMap
     
     public StreetMap() {}
 
-    public StreetMap(List<Node> nodes, List<NodeConnection> connections, List<Road> streets = null) {
+    public StreetMap(List<Node> nodes, List<Road> streets = null) {
         this.nodes = nodes;
-        this.connections = connections;
         if (streets == null) this.streets = StreetMap.GetStreets(this);
     }
 
@@ -42,7 +37,7 @@ public class StreetMap
         List<int> ignore = new List<int>();
         foreach (int n in deadEnds) {
             if (!ignore.Contains(n)) {
-                Road road = StreetPath.GetStreet(map, n);
+                Road road = Road.GetStreet(map, n);
                 ignore.Add(road.NodeIDs.Last());
                 streets.Add(road);
             }
@@ -56,7 +51,7 @@ public class StreetMap
                 }
                 direction = direction.normalized;
 
-                Road road = StreetPath.GetStreet(map, n, direction);
+                Road road = Road.GetStreet(map, n, direction);
                 ignore.Add(road.NodeIDs.Last());
                 streets.Add(road);
             }
@@ -66,7 +61,7 @@ public class StreetMap
             streets[i].SetID(i);
 
             foreach (int n in streets[i].NodeIDs) {
-                map.nodes[n].StreetsWithNode.Add(streets[i].ID);
+                map.nodes[n].streetsWithNode.Add(streets[i].ID);
             }
         }
         

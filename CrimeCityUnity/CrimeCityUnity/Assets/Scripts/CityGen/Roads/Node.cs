@@ -17,7 +17,7 @@ public class Node
         get {return Vector3S.ConvertBack(position);}
     }
 
-    [SerializeField] public List<int> StreetsWithNode = new List<int>();
+    [SerializeField] public List<int> streetsWithNode = new List<int>();
 
     public Node(Vector3 position, int ID, List<int> connectedNodes = null) {
         this.position = new Vector3S(position);
@@ -64,6 +64,10 @@ public class Node
 
     public void SetPosition(Vector3 newPos) {
         position = new Vector3S(newPos);
+    }
+
+    public static float Distance(Node node1, Node node2) {
+        return Vector3.Distance(node1.Position, node2.Position);
     }
 
     public static int? GetIDofPos(Vector3 pos, List<Node> nodes) {
