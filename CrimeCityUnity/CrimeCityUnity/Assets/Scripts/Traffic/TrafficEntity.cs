@@ -38,7 +38,8 @@ public class TrafficEntity {
             if (canMove) {  
                 if (moveTask == null) {
                     progress = 0; 
-                    moveTask = new Task(MoveBetween(0.04f, map.Nodes[currentNode], map.Nodes[(int)nextNode]));
+                    float speed = map.Streets[(int)Road.GetStreetWithNodes(new List<Node>(){map.Nodes[currentNode], map.Nodes[(int)nextNode]})].speedLimit;
+                    moveTask = new Task(MoveBetween(speed, map.Nodes[currentNode], map.Nodes[(int)nextNode]));
                     moveTask.Finished += delegate {
                         
                         pathIndex++;

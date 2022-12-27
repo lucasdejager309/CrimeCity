@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrafficRenderer : MonoBehaviour
 {
     public GameObject tempCarPrefab;
+    public Color color;
     public Dictionary<int, GameObject> trafficDict = new Dictionary<int, GameObject>();
     
     public void SpawnTrafficEntities(List<TrafficEntity> entities, StreetMap map) {
@@ -25,6 +26,7 @@ public class TrafficRenderer : MonoBehaviour
         Vector3 position = map.Nodes[entity.currentNode].Position;
 
         GameObject trafficObject = Instantiate(tempCarPrefab, position, Quaternion.identity);
+        trafficObject.GetComponent<MeshRenderer>().material.color = color;
         trafficDict.Add(entity.ID, trafficObject);
     }
 

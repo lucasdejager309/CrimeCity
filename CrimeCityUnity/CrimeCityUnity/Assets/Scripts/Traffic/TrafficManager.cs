@@ -9,14 +9,15 @@ public class TrafficManager
     public List<TrafficEntity> Entities {
         get {return entities;}
     }
-    [SerializeField] StreetMap map;
+    StreetMap map;
 
     public TrafficManager(StreetMap map) {
         this.map = map;
     }
 
-    public void AddEntity(TrafficEntity entity) {
+    public void AddEntity(TrafficEntity entity, TrafficRenderer renderer) {
         entities.Add(entity);
+        renderer.SpawnTrafficEntity(entity, map);
     }
 
     public void SetPath(int entityID, StreetPath path) {

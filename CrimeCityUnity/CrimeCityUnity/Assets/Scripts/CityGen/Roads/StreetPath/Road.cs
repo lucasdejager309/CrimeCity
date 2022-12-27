@@ -11,7 +11,7 @@ public class Road : StreetPath
         this.ID = ID;
     }
 
-    public float speedLimit = 50;
+    public float speedLimit = 0.2f;
 
     public Road(List<int> nodeIDs, List<Node> mapNodes) : base(nodeIDs, mapNodes) {
         SetNodeIDs(nodeIDs);

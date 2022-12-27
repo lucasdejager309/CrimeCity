@@ -10,10 +10,19 @@ public class GameManager : MonoBehaviour
     public bool GetMapOnLoad = false;
 
     public StreetMap map;
+    MapRenderer mapRenderer;
     public TrafficManager traffic;
+    TrafficRenderer trafficRenderer;
 
     void Start() {
-        if (GetMapOnLoad) GetMap();
+        mapRenderer = GetComponent<MapRenderer>();
+        trafficRenderer = GetComponent<TrafficRenderer>();
+        if (GetMapOnLoad) GetMap(); traffic = new TrafficManager(map);
+
+        TrafficEntity trafficEntity = new TrafficEntity(map.Streets[0].NodeIDs[0], 0);
+        traffic.AddEntity(trafficEntity, trafficRenderer);
+        trafficEntity.SetPath(map.Streets[0]);
+
     }
 
     void Update() {
@@ -23,6 +32,7 @@ public class GameManager : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (traffic == null) traffic = new TrafficManager(map);
         traffic.Update();
         GetComponent<TrafficRenderer>().UpdateTraffic(traffic.Entities, map);
     }
@@ -35,22 +45,8 @@ public class GameManager : MonoBehaviour
             map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator);
             SaveLoad.Save(map);
         }
-
-        MapRenderer renderer = GetComponent<MapRenderer>();
-
-        renderer.ClearLineObjects();
-        if (renderer.renderNodes) renderer.DrawNodes(map.Nodes);
-        renderer.DrawPaths(map, 0f);
-
-        traffic = new TrafficManager(map);
-
-        //temp 
-        GetComponent<TrafficRenderer>().ClearTrafficEntities();
-        for (int i = 0; i < map.Streets.Count; i++) {
-            TrafficEntity trafficEntity = new TrafficEntity(map.Streets[i].NodeIDs[0], i);
-            trafficEntity.SetPath(map.Streets[i]);
-            traffic.AddEntity(trafficEntity);
-        }
-        GetComponent<TrafficRenderer>().SpawnTrafficEntities(traffic.Entities, map);
+        mapRenderer.ClearLineObjects();
+        if (mapRenderer.renderNodes) mapRenderer.DrawNodes(map.Nodes);
+        mapRenderer.DrawPaths(map, 0f);
     }
 }
