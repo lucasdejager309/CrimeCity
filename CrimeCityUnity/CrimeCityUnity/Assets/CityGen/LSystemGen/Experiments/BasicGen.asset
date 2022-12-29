@@ -33,15 +33,30 @@ MonoBehaviour:
   - character: 91
     action: 0
     times: 1
+    randomTimes: 0
+    minTimes: 0
+    maxTimes: 0
   - character: 93
     action: 1
     times: 1
+    randomTimes: 0
+    minTimes: 0
+    maxTimes: 0
   - character: 70
     action: 2
     times: 1
+    randomTimes: 0
+    minTimes: 0
+    maxTimes: 0
   - character: 43
     action: 3
     times: 1
+    randomTimes: 0
+    minTimes: 0
+    maxTimes: 0
   - character: 45
     action: 4
     times: 1
+    randomTimes: 0
+    minTimes: 0
+    maxTimes: 0

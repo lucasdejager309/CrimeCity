@@ -1,0 +1,23 @@
+{
+    "general":
+        [
+        "Road",
+        "Avenue",
+        "Street",
+        "Line",
+        "Roadway",
+        "Course",
+        "Track"
+        ],
+    "big": 
+        [
+        "Boulevard",
+        "Route"
+        ],
+    "small": 
+        [
+        "Place",
+        "Alley",
+        "Path"
+        ]
+}

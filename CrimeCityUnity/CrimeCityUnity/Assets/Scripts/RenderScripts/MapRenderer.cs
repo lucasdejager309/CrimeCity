@@ -53,15 +53,16 @@ public class MapRenderer : MonoBehaviour
         }
     }
 
-    public void DrawPath(StreetPath path, List<Node> nodes, Color color, float width, float yPos = 0) {
+    public GameObject DrawPath(StreetPath path, List<Node> nodes, Color color, float width, float yPos = 0) {
         List<Vector3> positions = new List<Vector3>();
         
         if (path.NodeIDs.Count > 1) {
             foreach (int id in path.NodeIDs) {
                 positions.Add(nodes[id].Position);
             }
-            CreateLineObject(positions, color, width, yPos);
+            return CreateLineObject(positions, color, width, yPos);
         }   
+        return null;
     }
 
     public GameObject CreateLineObject(List<Vector3> positions, Color color, float width, float yPos = 0) {

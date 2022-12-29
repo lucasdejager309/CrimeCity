@@ -22,7 +22,12 @@ public static class Decoder
         foreach (char c in sentence) {
             ActionKey action = LSystemGenerator.charToAction(generator.keys, c);
 
-            for (int i = 0; i < action.times; i++) {
+            int times = action.times;
+            if (action.randomTimes) {
+                times = UnityEngine.Random.Range(action.minTimes, action.maxTimes);
+            }
+
+            for (int i = 0; i < times; i++) {
                 switch (action.action) {
                     case Action.save:
                         savePoints.Push(new AgentParameters {

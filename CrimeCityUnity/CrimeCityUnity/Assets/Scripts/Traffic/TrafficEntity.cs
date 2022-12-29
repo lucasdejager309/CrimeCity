@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -51,7 +52,8 @@ public class TrafficEntity {
                         } else {
                             //end
                             moveTask = null;
-                            currentNode = pathToFollow.NodeIDs[pathIndex];
+                            currentNode = pathToFollow.NodeIDs.Last();
+                            progress = 0;
                             nextNode = null;
                             pathToFollow = null;     
                         }
@@ -76,6 +78,15 @@ public class TrafficEntity {
 
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    public List<int> GetStreets(List<Node> nodes) {
+        if (nextNode == null) {
+            return nodes[currentNode].streetsWithNode;
+        } else {
+            int street = (int)Road.GetStreetWithNodes(new List<Node>(){nodes[currentNode], nodes[(int)nextNode]});
+            return new List<int>(){street};
         }
     }
 }

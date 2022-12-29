@@ -15,6 +15,11 @@ public class ActionKey {
     public char character;
     public Action action;
     public int times = 1;
+    public bool randomTimes = false;
+    [Range(0, 10)]
+    public int minTimes = 1;
+    [Range(0, 10)]
+    public int maxTimes = 4;
 
     public ActionKey(char c, Action action, int times = 1)
     {
@@ -34,6 +39,8 @@ public enum Action {
     none
 }
 
+
+[CreateAssetMenu(fileName = "New LSystemGenerator", menuName = "LSystemGenerator")]
 public class LSystemGenerator : ScriptableObject
 {
     [Header("Generation Settings")]

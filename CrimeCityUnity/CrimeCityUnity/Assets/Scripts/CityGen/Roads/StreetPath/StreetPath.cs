@@ -21,7 +21,7 @@ public class StreetPath
 
     public StreetPath(List<int> nodeIDs, List<Node> mapNodes) {
         SetNodeIDs(nodeIDs);
-        SetLength(CalculateLength(mapNodes));
+        if (NodeIDs.Count != 0) SetLength(CalculateLength(mapNodes));
     }
 
     public bool ContainsNodes(List<int> nodes) {

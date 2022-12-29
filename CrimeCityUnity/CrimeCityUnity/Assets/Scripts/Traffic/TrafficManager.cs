@@ -29,4 +29,8 @@ public class TrafficManager
             e.Update(map);
         }
     }
+
+    public void ClearTraffic() {
+        entities.Clear();
+    }
 }
