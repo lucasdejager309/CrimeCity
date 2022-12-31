@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 210857758}
   - component: {fileID: 210857760}
   - component: {fileID: 210857761}
+  - component: {fileID: 210857762}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -186,12 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def68b5a5ee56a845840c3e09f723bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
-  LoadFromSave: 0
+  LoadFromSave: 1
   GetMapOnLoad: 1
-  map:
-    nodes: []
-    streets: []
   traffic:
     entities: []
 --- !u!4 &210857759
@@ -241,6 +238,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tempCarPrefab: {fileID: 1679374075835892619, guid: 992a2b8db3d583e498a3285cbfe82076, type: 3}
   color: {r: 1, g: 0, b: 0.031262875, a: 0}
+--- !u!114 &210857762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210857757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49eb111ac43ad24fb217754f6e16983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
+  roadTypeDetector: {fileID: 11400000, guid: d0d41a98f9cb0264292d9525728efd7b, type: 2}
+  map:
+    nodes: []
+    streets: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,8 +499,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 65
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 215
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -509,11 +523,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.42391992, y: -0.32434043, z: 0.16581206, w: 0.82921743}
-  m_LocalPosition: {x: 117.2, y: 220.2, z: -179.2}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 220.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 193367285}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 54.155, y: -42.725, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}

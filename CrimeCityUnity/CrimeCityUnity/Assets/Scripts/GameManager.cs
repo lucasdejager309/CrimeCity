@@ -5,11 +5,11 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private LSystemGenerator systemGenerator;
+    
     public bool LoadFromSave = false;
     public bool GetMapOnLoad = false;
 
-    public StreetMap map;
+    CityGen cityGen;
     MapRenderer mapRenderer;
     public TrafficManager traffic;
     TrafficRenderer trafficRenderer;
@@ -21,47 +21,46 @@ public class GameManager : MonoBehaviour
     void Start() {
         mapRenderer = GetComponent<MapRenderer>();
         trafficRenderer = GetComponent<TrafficRenderer>();
-        if (GetMapOnLoad) GetMap();
+        cityGen = GetComponent<CityGen>();
+        if (GetMapOnLoad) {
+            InitMap();    
+        }
+        
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            GetMap();
+            InitMap();
         }
         
+        //temp testing
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
             Destroy(pathObject);
-            StreetPath path = Pathfinding.FindPath(trafficEntity.currentNode, map.Nodes[Random.Range(0, map.Nodes.Count-1)].ID, map);
-            pathObject = mapRenderer.DrawPath(path, map.Nodes, Color.red, 1f, 1f);
+            StreetPath path = Pathfinding.FindPath(trafficEntity.currentNode, cityGen.map.Nodes[Random.Range(0, cityGen.map.Nodes.Count-1)].ID, cityGen.map);
+            pathObject = mapRenderer.DrawPath(path, cityGen.map.Nodes, Color.red, 1f, 1f);
             trafficEntity.SetPath(path);
         }
     }
 
     void FixedUpdate() {
         traffic.Update();
-        GetComponent<TrafficRenderer>().UpdateTraffic(traffic.Entities, map);
+        GetComponent<TrafficRenderer>().UpdateTraffic(traffic.Entities, cityGen.map);
     }
 
-    void GetMap() {
-        if (LoadFromSave) {
-            map = SaveLoad.GetSave().GetMap();
-        } else {
-            string sentence = systemGenerator.GenerateSentence();
-            map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator);
-            SaveLoad.Save(map);
-        }
+    void InitMap() {
+        cityGen.GetMap(LoadFromSave);
         mapRenderer.ClearLineObjects();
-        if (mapRenderer.renderNodes) mapRenderer.DrawNodes(map.Nodes);
-        mapRenderer.DrawPaths(map, 0f);
-        
-        traffic = new TrafficManager(map);
+        if (mapRenderer.renderNodes) mapRenderer.DrawNodes(cityGen.map.Nodes);
+        mapRenderer.DrawStreets(cityGen.map, 0f);
+
+        traffic = new TrafficManager(cityGen.map);
         traffic.ClearTraffic();
         trafficRenderer.ClearTrafficEntities();
 
 
         //temp testing
-        int startNode = map.Nodes[Random.Range(0, map.Nodes.Count-1)].ID;
-        int endNode = map.Nodes[Random.Range(0, map.Nodes.Count-1)].ID;
+        int startNode = cityGen.map.Nodes[Random.Range(0, cityGen.map.Nodes.Count-1)].ID;
+        int endNode = cityGen.map.Nodes[Random.Range(0, cityGen.map.Nodes.Count-1)].ID;
 
         trafficEntity = new TrafficEntity(startNode, 0);
         traffic.AddEntity(trafficEntity, trafficRenderer);

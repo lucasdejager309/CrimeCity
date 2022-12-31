@@ -70,6 +70,10 @@ public class Node
         return Vector3.Distance(node1.Position, node2.Position);
     }
 
+    public static Vector3 Direction(Node node1, Node node2) {
+        return node2.Position - node1.Position;
+    }
+
     public static int? GetIDofPos(Vector3 pos, List<Node> nodes) {
         foreach (Node node in nodes) {
             if (Vector3S.ConvertBack(node.position) == pos) return node.ID;

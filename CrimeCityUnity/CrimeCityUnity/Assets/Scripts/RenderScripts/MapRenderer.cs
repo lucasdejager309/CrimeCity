@@ -42,14 +42,15 @@ public class MapRenderer : MonoBehaviour
         }
     }
 
-    public void DrawPaths(StreetMap map, float yPos = 0, Color? color = null, float? width = null) {
+    public void DrawStreets(StreetMap map, float yPos = 0, Color? color = null, float? width = null) {
         
         if (color == null) color = this.color;
         if (width == null) width = this.width;
 
-        foreach(StreetPath path in map.Streets) {
+        foreach(Road street in map.Streets) {
             
-            DrawPath(path, map.Nodes, (Color)color, (float)width, yPos);
+            GameObject obj = DrawPath(street, map.Nodes, (Color)color, (float)width, yPos);
+            obj.name = street.name;
         }
     }
 

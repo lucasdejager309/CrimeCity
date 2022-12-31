@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: StreetGen
   m_EditorClassIdentifier: 
   rootSentence: '[+F][+F][+F][+F]'
-  iterationLimit: 5
+  iterationLimit: 4
   startLength: 10
   lengthModifier: 1
   generateStreets: 1
   useBound: 1
   boundType: 0
-  outerBound: 200
+  outerBound: 100
   angle: 90
   useRandomAngle: 0
   minAngle: 45
@@ -55,8 +55,8 @@ MonoBehaviour:
     action: 2
     times: 2
     randomTimes: 1
-    minTimes: 1
-    maxTimes: 4
+    minTimes: 2
+    maxTimes: 6
   - character: 43
     action: 3
     times: 1

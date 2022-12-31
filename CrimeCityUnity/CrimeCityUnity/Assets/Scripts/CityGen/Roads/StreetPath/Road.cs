@@ -11,9 +11,13 @@ public class Road : StreetPath
         this.ID = ID;
     }
 
-    public string name {get; private set; }
+    [SerializeField]
+    public string name { get; private set; }
+    public void SetName(string name) {
+        this.name = name;
+    }
 
-    public float speedLimit = 2f;
+    public float speedLimit = 0.5f;
 
     public Road(List<int> nodeIDs, List<Node> mapNodes) : base(nodeIDs, mapNodes) {
         SetNodeIDs(nodeIDs);
