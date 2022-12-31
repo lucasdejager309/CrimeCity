@@ -14,6 +14,8 @@ public class CityGen : MonoBehaviour
         } else {
             string sentence = systemGenerator.GenerateSentence();
             map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator, roadTypeDetector);
+            map.SetSquares(BuildingGen.GetSquares(map.Nodes, systemGenerator.startLength));
+
             SaveLoad.Save(map);
         }
     }

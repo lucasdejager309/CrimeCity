@@ -14,6 +14,14 @@ public class StreetMap
     public List<Road> Streets {
         get {return streets;}
     }
+
+    [SerializeField] List<Square> squares = new List<Square>();
+    public List<Square> Squares {
+        get {return squares;}
+    }
+    public void SetSquares(List<Square> squares) {
+        this.squares = squares;
+    }
     
     public StreetMap() {}
 

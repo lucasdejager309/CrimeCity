@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def68b5a5ee56a845840c3e09f723bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadFromSave: 1
+  LoadFromSave: 0
   GetMapOnLoad: 1
   traffic:
     entities: []
@@ -218,12 +218,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d989d7844072f429b6109d2dda2e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  lineMaterial: {fileID: 2100000, guid: 3c6736cc04135d24399f7ca0294610bb, type: 2}
   color: {r: 0, g: 1, b: 0.92156863, a: 1}
   width: 1
-  renderNodes: 0
+  renderNodes: 1
   nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}
+  squarePrefab: {fileID: 4936469105624147958, guid: ff8f7c468a75a1c40a87701607a02b8f, type: 3}
   lineObjects: []
+  squareObjects: []
 --- !u!114 &210857761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +257,7 @@ MonoBehaviour:
   map:
     nodes: []
     streets: []
+    squares: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +405,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: da389a9ceb840a548b40d8fa3f917f67, type: 2}
+  - {fileID: 2100000, guid: 42ad7e7d912a0ac4eb03c7b5c5d934a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

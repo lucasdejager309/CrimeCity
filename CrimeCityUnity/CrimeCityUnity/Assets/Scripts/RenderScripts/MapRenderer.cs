@@ -9,31 +9,10 @@ public class MapRenderer : MonoBehaviour
     public float width;
     public bool renderNodes = false;
     public GameObject nodePrefab;
+    public GameObject squarePrefab;
 
     public List<GameObject> lineObjects = new List<GameObject>();
-
-    public void DrawSections(List<Node> nodes, float yPos = 0) {
-        
-        List<KeyValuePair<Vector3, Vector3>> drawnLines = new List<KeyValuePair<Vector3, Vector3>>();
-
-        foreach (Node node in nodes) {
-            if (renderNodes) {
-                GameObject nodeObject = Instantiate(nodePrefab, node.Position, Quaternion.identity);
-                lineObjects.Add(nodeObject);
-            }
-            
-            foreach (int connectedNode in node.GetConnectedNodes()) {
-                if (!ContainsLine(node.Position, nodes[connectedNode].Position, drawnLines)) {
-                    List<Vector3> positions = new List<Vector3>();
-                    positions.Add(node.Position);
-                    positions.Add(nodes[connectedNode].Position);
-
-                    CreateLineObject(positions, color, width, yPos);
-                    drawnLines.Add(new KeyValuePair<Vector3, Vector3>(node.Position, nodes[connectedNode].Position));
-                }
-            }   
-        }
-    }
+    public List<GameObject> squareObjects = new List<GameObject>();
 
     public void DrawNodes(List<Node> nodes, float ypos = 0) {
         foreach (Node n in nodes) {
@@ -105,14 +84,24 @@ public class MapRenderer : MonoBehaviour
         lineObjects.Clear();
     }
 
-    private bool ContainsLine(Vector3 pos1, Vector3 pos2, List<KeyValuePair<Vector3, Vector3>> lines) {
-        foreach (var line in lines) {
-            if (
-                (line.Key == pos1 && line.Value == pos2)
-                ||
-                (line.Key == pos2 && line.Value == pos1)
-            ) return true;
+    public void DrawSquares(List<Square> squares) {
+        foreach (Square square in squares) {
+            CreateSquareObject(square);
         }
-        return false;
+    }
+
+    public void CreateSquareObject(Square square) {
+        Vector3 position = square.GetCenterPos();
+        GameObject squareObject = Instantiate(squarePrefab, position, Quaternion.identity);
+        squareObjects.Add(squareObject);
+    }
+
+
+    public void ClearSquareObjects() {
+        foreach(GameObject obj in squareObjects) {
+            Destroy(obj);
+        }
+
+        squareObjects.Clear();
     }
 }
