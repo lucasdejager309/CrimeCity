@@ -19,10 +19,10 @@ public static class BuildingGen {
         }
 
         public void Update(Node node) {
-            if (node.Position.x < xMin) xMin = node.Position.x;
-            if (node.Position.z < zMin) zMin = node.Position.z;
-            if (node.Position.x > xMax) xMax = node.Position.x;
-            if (node.Position.z > zMax) zMax = node.Position.z;
+            if (node.Position.x < xMin) {xMin = node.Position.x;}
+            if (node.Position.z < zMin) {zMin = node.Position.z;}
+            if (node.Position.x > xMax) {xMax = node.Position.x;}
+            if (node.Position.z > zMax) {zMax = node.Position.z;}
         }
     }
     public static List<Square> GetSquares(List<Node> nodes, float gridSize) {
@@ -34,11 +34,11 @@ public static class BuildingGen {
             bound.Update(node);
         }
         //extend bounds 1 roadLength
-        bound.Extend(gridSize*2);
-        
+        bound.Extend(gridSize);
+
         //create grid within these bounds
         for (float x = bound.xMin; x < bound.xMax; x += gridSize) {
-            for (float z = bound.xMin; z < bound.xMax; z += gridSize) {
+            for (float z = bound.zMin; z < bound.zMax; z += gridSize) {
                 Square square = new Square(new Vector3(x, 0, z), gridSize);
                  //if square in grid  has 2 or more connected streetnodes
                 if (square.GetNodesOnGrid(nodes) != null) {

@@ -19,7 +19,7 @@ MonoBehaviour:
   generateStreets: 1
   useBound: 1
   boundType: 0
-  outerBound: 100
+  outerBound: 200
   angle: 90
   useRandomAngle: 0
   minAngle: 45

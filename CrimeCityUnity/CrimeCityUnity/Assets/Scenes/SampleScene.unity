@@ -189,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadFromSave: 0
   GetMapOnLoad: 1
+  RenderSquares: 1
   traffic:
     entities: []
 --- !u!4 &210857759
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d989d7844072f429b6109d2dda2e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMaterial: {fileID: 2100000, guid: 3c6736cc04135d24399f7ca0294610bb, type: 2}
+  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 0, g: 1, b: 0.92156863, a: 1}
   width: 1
   renderNodes: 1
