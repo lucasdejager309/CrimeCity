@@ -255,11 +255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
   roadTypeDetector: {fileID: 11400000, guid: d0d41a98f9cb0264292d9525728efd7b, type: 2}
-  buildingLayers: 2
+  buildingGen: {fileID: 11400000, guid: 7398f428b166a994ebc7a442f86585e6, type: 2}
   map:
     nodes: []
     streets: []
-    squares: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

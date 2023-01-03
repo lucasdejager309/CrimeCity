@@ -22,16 +22,16 @@ MonoBehaviour:
     roadNameTypes:
     - small
     speedModifier: 0.2
-  - minLength: 20
+  - minLength: 40
     roadNameTypes:
     - general
     speedModifier: 0.5
-  - minLength: 100
+  - minLength: 200
     roadNameTypes:
     - big
     - general
     speedModifier: 1
-  - minLength: 200
+  - minLength: 400
     roadNameTypes:
     - highway
     - big

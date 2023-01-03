@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootSentence: '[+F][+F][+F][+F]'
   iterationLimit: 3
-  startLength: 10
+  startLength: 20
   lengthModifier: 1
   generateStreets: 1
   useBound: 1
   boundType: 0
-  outerBound: 400
+  outerBound: 300
   angle: 90
   useRandomAngle: 0
   minAngle: 45
