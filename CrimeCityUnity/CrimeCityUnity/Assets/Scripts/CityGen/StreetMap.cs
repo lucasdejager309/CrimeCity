@@ -15,11 +15,11 @@ public class StreetMap
         get {return streets;}
     }
 
-    [SerializeField] List<Square> squares = new List<Square>();
-    public List<Square> Squares {
+    [SerializeField] Dictionary<Vector3S, Square> squares = new Dictionary<Vector3S, Square>();
+    public Dictionary<Vector3S, Square> Squares {
         get {return squares;}
     }
-    public void SetSquares(List<Square> squares) {
+    public void SetSquares(Dictionary<Vector3S, Square> squares) {
         this.squares = squares;
     }
     

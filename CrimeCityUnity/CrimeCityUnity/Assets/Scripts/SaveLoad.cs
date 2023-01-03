@@ -57,7 +57,17 @@ public class Vector3S {
             z = vector3.z;
         }
 
-        public static Vector3 ConvertBack(Vector3S vector) {
+        public Vector3S(float x, float y, float z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        public Vector3 Back() {
+            return new Vector3(x, y, z);
+        }
+
+        public static Vector3 Back(Vector3S vector) {
             return new Vector3(vector.x, vector.y, vector.z);
         }
     }

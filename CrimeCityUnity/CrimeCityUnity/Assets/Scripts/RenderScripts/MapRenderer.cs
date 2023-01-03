@@ -84,15 +84,16 @@ public class MapRenderer : MonoBehaviour
         lineObjects.Clear();
     }
 
-    public void DrawSquares(List<Square> squares) {
-        foreach (Square square in squares) {
-            CreateSquareObject(square);
+    public void DrawSquares(Dictionary<Vector3S, Square> squares) {
+        foreach (var square in squares) {
+            CreateSquareObject(square.Value, square.Key.Back().ToString());
         }
     }
 
-    public void CreateSquareObject(Square square) {
+    public void CreateSquareObject(Square square, string name) {
         Vector3 position = square.GetCenterPos();
         GameObject squareObject = Instantiate(squarePrefab, position, Quaternion.identity);
+        squareObject.name = name;
         squareObjects.Add(squareObject);
     }
 

@@ -19,7 +19,7 @@ public class NodeConnection
     }
     Vector3S direction;
     public Vector3 Direction {
-        get {return Vector3S.ConvertBack(direction);}
+        get {return Vector3S.Back(direction);}
     }
 
     public NodeConnection(int id, int start, int end, List<Node> nodes) {

@@ -25,8 +25,8 @@ public static class BuildingGen {
             if (node.Position.z > zMax) {zMax = node.Position.z;}
         }
     }
-    public static List<Square> GetSquares(List<Node> nodes, float gridSize) {
-        List<Square> squares = new List<Square>();
+    public static Dictionary<Vector3S, Square> GetSquares(List<Node> nodes, float gridSize, int layers) {
+        Dictionary<Vector3, Square> squares = new Dictionary<Vector3, Square>();
 
         //get bounds of city
         Bound bound = new Bound();
@@ -44,22 +44,40 @@ public static class BuildingGen {
                 if (square.GetNodesOnGrid(nodes) != null) {
                     if (square.streetNodes.Count > 1) {
                         //add square in squaredictionary
-                        squares.Add(square);
+                        Vector3 position = new Vector3(x, 0, z);
+                        if (!squares.ContainsKey(position)) squares.Add(position, square);
+                        
+                        int zLayerDirection = square.GetzLayerDirection(nodes);
+                        if (zLayerDirection != 0) {
+                            position = position + new Vector3(0, 0, (gridSize*zLayerDirection));
+                            if (!squares.ContainsKey(position)) {
+                                squares.Add(position, new Square(position, gridSize));
+                            }
+                        }
+                        int xLayerDirection = square.GetxLayerDirection(nodes);
+                        if (xLayerDirection != 0) {
+                            position = position + new Vector3((gridSize*xLayerDirection), 0, 0);
+                            if (!squares.ContainsKey(position)) {
+                                squares.Add(position, new Square(position, gridSize));
+                            }
+                        }
+                        
                     }
                 }
             }
         }
 
-        return squares;
+        Dictionary<Vector3S, Square> squaresS = new Dictionary<Vector3S, Square>();
+        foreach (var kv in squares) {
+            squaresS.Add(new Vector3S(kv.Key), kv.Value);
+        }
+
+        return squaresS;
     }
 }
 
 [System.Serializable]
 public class Square {
-    public Vector3S position {get; private set;}
-    public Vector3 Position {
-        get {return Vector3S.ConvertBack(position);}
-    }
     private Vector3S centerPos = null;
 
     public Vector3S[] points {get; private set;} = new Vector3S[4];
@@ -69,16 +87,15 @@ public class Square {
     }
 
     public Square(Vector3 newPosition, float gridSize) {
-        position = new Vector3S(newPosition);
         
-        points[0] = position;
+        points[0] = new Vector3S(newPosition);
         points[1] = new Vector3S(newPosition + new Vector3(gridSize, 0, 0));
         points[2] = new Vector3S(newPosition + new Vector3(gridSize, 0,  gridSize));
         points[3] = new Vector3S(newPosition + new Vector3(0, 0, gridSize));
     }
 
     public Vector3 GetCenterPos() {
-        if (centerPos != null) return Vector3S.ConvertBack(centerPos);
+        if (centerPos != null) return Vector3S.Back(centerPos);
         float x = 0f;
         float y = 0f;
         float z = 0f;
@@ -89,13 +106,13 @@ public class Square {
             z += point.z;
         }
         centerPos = new Vector3S(new Vector3(x / points.Length, y / points.Length, z / points.Length));
-        return Vector3S.ConvertBack(centerPos);
- }
+        return Vector3S.Back(centerPos);
+    }
 
     public List<int> GetNodesOnGrid(List<Node> nodes) {    
         int? possibleNode = null;
         foreach (Vector3S point in points) {
-            possibleNode = Node.GetIDofPos(Vector3S.ConvertBack(point), nodes);
+            possibleNode = Node.GetIDofPos(Vector3S.Back(point), nodes);
             if (possibleNode != null) {
                 streetNodes.Add((int)possibleNode);
                 break;
@@ -106,7 +123,7 @@ public class Square {
         else {
             foreach (int c in nodes[(int)possibleNode].GetConnectedNodes()) {
                 foreach (Vector3S point in points) {
-                    possibleNode = Node.GetIDofPos(Vector3S.ConvertBack(point), nodes);
+                    possibleNode = Node.GetIDofPos(Vector3S.Back(point), nodes);
                     if (possibleNode != null) {
                         if (!streetNodes.Contains((int)possibleNode)) streetNodes.Add((int)possibleNode);
                     }
@@ -115,5 +132,56 @@ public class Square {
         }
 
         return streetNodes;
+    }
+
+
+    public int GetzLayerDirection(List<Node> nodes) {
+        int direction = 0;
+
+        if (streetNodes.Count != 2) return direction;
+        
+        if (
+            (
+                Node.GetIDofPos(points[0].Back(), nodes, streetNodes) != null
+                &&
+                Node.GetIDofPos(points[1].Back(), nodes, streetNodes) != null
+            )
+        ) {
+            direction = 1;
+        } else if (
+            (
+                Node.GetIDofPos(points[2].Back(), nodes, streetNodes) != null
+                &&
+                Node.GetIDofPos(points[3].Back(), nodes, streetNodes) != null
+            )
+        ) {
+            direction = -1;
+        }
+
+        return direction;
+    }
+
+    public int GetxLayerDirection(List<Node> nodes) {
+        int direction = 0;
+
+        if (
+            (
+                Node.GetIDofPos(points[0].Back(), nodes, streetNodes) != null
+                &&
+                Node.GetIDofPos(points[3].Back(), nodes, streetNodes) != null
+            )
+        ) {
+            direction = 1;
+        } else if (
+            (
+                Node.GetIDofPos(points[1].Back(), nodes, streetNodes) != null
+                &&
+                Node.GetIDofPos(points[2].Back(), nodes, streetNodes) != null
+            )
+        ) {
+            direction = -1;
+        }
+
+        return direction;
     }
 }

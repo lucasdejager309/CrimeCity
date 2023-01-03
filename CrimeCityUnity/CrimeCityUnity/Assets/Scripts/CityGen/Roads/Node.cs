@@ -14,7 +14,7 @@ public class Node
 
     [SerializeField] Vector3S position;
     public Vector3 Position {
-        get {return Vector3S.ConvertBack(position);}
+        get {return Vector3S.Back(position);}
     }
 
     [SerializeField] public List<int> streetsWithNode = new List<int>();
@@ -74,9 +74,15 @@ public class Node
         return node2.Position - node1.Position;
     }
 
-    public static int? GetIDofPos(Vector3 pos, List<Node> nodes) {
-        foreach (Node node in nodes) {
-            if (Vector3S.ConvertBack(node.position) == pos) return node.ID;
+    public static int? GetIDofPos(Vector3 pos, List<Node> nodes, List<int> nodesToSearch = null) {
+        if (nodesToSearch != null) {
+            foreach (int node in nodesToSearch) {
+                if (Vector3S.Back(nodes[node].position) == pos) return nodes[node].ID;
+            }
+        } else {
+            foreach (Node node in nodes) {
+                if (Vector3S.Back(node.position) == pos) return node.ID;
+            }
         }
         return null;
     }
