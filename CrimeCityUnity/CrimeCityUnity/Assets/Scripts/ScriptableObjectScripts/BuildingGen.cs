@@ -6,28 +6,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New BuildingGen", menuName = "BuildingGen")]
 public class BuildingGen : ScriptableObject {
     public int layers = 1;
+    public List<SpawnableBuilding> buildings = new List<SpawnableBuilding>();
 
-    private class Bound {
-        public float xMin = float.MaxValue;
-        public float xMax = 0;
-        public float zMin  = float.MaxValue;
-        public float zMax = 0;
-
-        public void Extend(float amount) {
-            xMin -= amount;
-            zMin -= amount;
-            xMax += amount;
-            zMax += amount;
+    public BuildingMap GetMap(List<Node> nodes, float gridSize) {
+        BuildingMap map = new BuildingMap(GetSquares(nodes, gridSize), gridSize);
+        
+        //temp
+        foreach (SpawnableBuilding building in buildings) {
+            map.AddBuilding(building);
         }
 
-        public void Update(Node node) {
-            if (node.Position.x < xMin) {xMin = node.Position.x;}
-            if (node.Position.z < zMin) {zMin = node.Position.z;}
-            if (node.Position.x > xMax) {xMax = node.Position.x;}
-            if (node.Position.z > zMax) {zMax = node.Position.z;}
-        }
+        return map;
     }
-    public Dictionary<Vector3S, Square> GetSquares(List<Node> nodes, float gridSize) {
+
+    public Dictionary<Vector3, Square> GetSquares(List<Node> nodes, float gridSize) {
         Dictionary<Vector3, Square> squares = new Dictionary<Vector3, Square>();
 
         //get bounds of city
@@ -57,6 +49,9 @@ public class BuildingGen : ScriptableObject {
                                 position = position + new Vector3(0, 0, (i*gridSize*zLayerDirection));
                                 if (!squares.ContainsKey(position)) {
                                     squares.Add(position, new Square(position, gridSize));
+                                    squares.Last().Value.GetNodesOnGrid(nodes);
+                                    squares.Last().Value.GetzLayerDirection(nodes);
+                                    squares.Last().Value.GetxLayerDirection(nodes);
                                 }
                             } 
 
@@ -66,6 +61,9 @@ public class BuildingGen : ScriptableObject {
                                 position = position + new Vector3((i*gridSize*xLayerDirection), 0, 0);
                                 if (!squares.ContainsKey(position)) {
                                     squares.Add(position, new Square(position, gridSize));
+                                    squares.Last().Value.GetNodesOnGrid(nodes);
+                                    squares.Last().Value.GetzLayerDirection(nodes);
+                                    squares.Last().Value.GetxLayerDirection(nodes);
                                 }
                             }
                         }
@@ -74,11 +72,30 @@ public class BuildingGen : ScriptableObject {
             }
         }
 
-        Dictionary<Vector3S, Square> squaresS = new Dictionary<Vector3S, Square>();
-        foreach (var kv in squares) {
-            squaresS.Add(new Vector3S(kv.Key), kv.Value);
+        squares = Square.GetConnectedSquares(squares, gridSize);
+
+        return squares;
+    }
+
+}
+
+public class Bound {
+        public float xMin = float.MaxValue;
+        public float xMax = 0;
+        public float zMin  = float.MaxValue;
+        public float zMax = 0;
+
+        public void Extend(float amount) {
+            xMin -= amount;
+            zMin -= amount;
+            xMax += amount;
+            zMax += amount;
         }
 
-        return squaresS;
+        public void Update(Node node) {
+            if (node.Position.x < xMin) {xMin = node.Position.x;}
+            if (node.Position.z < zMin) {zMin = node.Position.z;}
+            if (node.Position.x > xMax) {xMax = node.Position.x;}
+            if (node.Position.z > zMax) {zMax = node.Position.z;}
+        }
     }
-}

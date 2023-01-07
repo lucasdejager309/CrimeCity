@@ -14,14 +14,6 @@ public class StreetMap
     public List<Road> Streets {
         get {return streets;}
     }
-
-    [SerializeField] Dictionary<Vector3S, Square> squares = new Dictionary<Vector3S, Square>();
-    public Dictionary<Vector3S, Square> Squares {
-        get {return squares;}
-    }
-    public void SetSquares(Dictionary<Vector3S, Square> squares) {
-        this.squares = squares;
-    }
     
     public StreetMap() {}
 

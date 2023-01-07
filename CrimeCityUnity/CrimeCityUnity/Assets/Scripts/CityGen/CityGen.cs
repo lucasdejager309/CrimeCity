@@ -7,17 +7,20 @@ public class CityGen : MonoBehaviour
     [SerializeField] private LSystemGenerator systemGenerator;
     [SerializeField] private RoadTypeDetector roadTypeDetector;
     [SerializeField] private BuildingGen buildingGen;
-    public StreetMap map;
+    public StreetMap streetMap;
+    public BuildingMap buildingMap;
 
     public void GetMap(bool loadFromSave) {
         if (loadFromSave) {
-            map = SaveLoad.GetSave().GetMap();
+            CitySave save = SaveLoad.GetCitySave(); 
+            streetMap = save.GetStreetMap();
+            buildingMap  =save.GetBuildingMap();
         } else {
             string sentence = systemGenerator.GenerateSentence();
-            map = Decoder.GetMap(sentence, Vector3.zero, systemGenerator, roadTypeDetector);
-            map.SetSquares(buildingGen.GetSquares(map.Nodes, systemGenerator.startLength));
+            streetMap = Decoder.GetMap(sentence, Vector3.zero, systemGenerator, roadTypeDetector);
+            buildingMap = buildingGen.GetMap(streetMap.Nodes, systemGenerator.startLength);
 
-            SaveLoad.Save(map);
+            SaveLoad.SaveCity(streetMap, buildingMap);
         }
     }
 }

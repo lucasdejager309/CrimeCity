@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     
     public bool LoadFromSave = false;
     public bool GetMapOnLoad = false;
-    public bool RenderSquares = false;
 
     CityGen cityGen;
     MapRenderer mapRenderer;
@@ -33,18 +32,18 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate() {
         traffic.Update();
-        GetComponent<TrafficRenderer>().UpdateTraffic(traffic.Entities, cityGen.map);
+        GetComponent<TrafficRenderer>().UpdateTraffic(traffic.Entities, cityGen.streetMap);
     }
 
     void InitMap() {
         cityGen.GetMap(LoadFromSave);
         mapRenderer.ClearLineObjects();
-        if (mapRenderer.renderNodes) mapRenderer.DrawNodes(cityGen.map.Nodes);
-        mapRenderer.DrawStreets(cityGen.map, 0f);
+        if (mapRenderer.renderNodes) mapRenderer.DrawNodes(cityGen.streetMap.Nodes);
+        mapRenderer.DrawStreets(cityGen.streetMap, 0f);
         mapRenderer.ClearSquareObjects();
-        if (RenderSquares) mapRenderer.DrawSquares(cityGen.map.Squares);
+        if (mapRenderer.renderSquares) mapRenderer.DrawSquares(cityGen.buildingMap.Squares);
 
-        traffic = new TrafficManager(cityGen.map);
+        traffic = new TrafficManager(cityGen.streetMap);
         traffic.ClearTraffic();
         trafficRenderer.ClearTrafficEntities();
     }

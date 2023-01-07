@@ -8,6 +8,7 @@ public class MapRenderer : MonoBehaviour
     public Color color;
     public float width;
     public bool renderNodes = false;
+    public bool renderSquares = false;
     public GameObject nodePrefab;
     public GameObject squarePrefab;
 
@@ -86,7 +87,7 @@ public class MapRenderer : MonoBehaviour
 
     public void DrawSquares(Dictionary<Vector3S, Square> squares) {
         foreach (var square in squares) {
-            CreateSquareObject(square.Value, square.Key.Back().ToString());
+            CreateSquareObject(square.Value, square.Key.ToString());
         }
     }
 
@@ -94,6 +95,9 @@ public class MapRenderer : MonoBehaviour
         Vector3 position = square.GetCenterPos();
         GameObject squareObject = Instantiate(squarePrefab, position, Quaternion.identity);
         squareObject.name = name;
+
+        float gridSize = square.points[1].x-square.points[0].x;
+        squareObject.transform.localScale = new Vector3(gridSize*0.7f, 1, gridSize*0.7f);
         squareObjects.Add(squareObject);
     }
 

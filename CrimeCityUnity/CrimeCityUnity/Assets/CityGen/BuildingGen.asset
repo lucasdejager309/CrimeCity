@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0980f64586b8e4f96f984acfef1c1c, type: 3}
   m_Name: BuildingGen
   m_EditorClassIdentifier: 
-  layers: 2
+  layers: 4
+  buildings:
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}

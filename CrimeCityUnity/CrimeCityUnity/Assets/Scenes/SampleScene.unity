@@ -189,7 +189,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadFromSave: 0
   GetMapOnLoad: 0
-  RenderSquares: 1
   traffic:
     entities: []
 --- !u!4 &210857759
@@ -222,7 +221,8 @@ MonoBehaviour:
   lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 0, g: 1, b: 0.92156863, a: 1}
   width: 1
-  renderNodes: 1
+  renderNodes: 0
+  renderSquares: 1
   nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}
   squarePrefab: {fileID: 4936469105624147958, guid: ff8f7c468a75a1c40a87701607a02b8f, type: 3}
   lineObjects: []
@@ -256,9 +256,11 @@ MonoBehaviour:
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
   roadTypeDetector: {fileID: 11400000, guid: d0d41a98f9cb0264292d9525728efd7b, type: 2}
   buildingGen: {fileID: 11400000, guid: 7398f428b166a994ebc7a442f86585e6, type: 2}
-  map:
+  streetMap:
     nodes: []
     streets: []
+  buildingMap:
+    buildings: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ GameObject:
   - component: {fileID: 741756949}
   - component: {fileID: 741756948}
   - component: {fileID: 741756947}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
