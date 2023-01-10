@@ -12,13 +12,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0980f64586b8e4f96f984acfef1c1c, type: 3}
   m_Name: BuildingGen
   m_EditorClassIdentifier: 
-  layers: 4
+  layers: 2
   buildings:
-  - buildingTypeID: small
-    xSize: 1
-    zSize: 1
-    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
   - buildingTypeID: big
     xSize: 2
     zSize: 2
     prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: big
+    xSize: 2
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: small
+    xSize: 1
+    zSize: 1
+    prefab: {fileID: 3616701208726885020, guid: f58843686b13e95449a139aac763bba0, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  - buildingTypeID: long
+    xSize: 1
+    zSize: 2
+    prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}

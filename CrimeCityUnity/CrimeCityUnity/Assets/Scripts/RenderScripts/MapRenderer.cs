@@ -17,9 +17,18 @@ public class MapRenderer : MonoBehaviour
 
     public void DrawNodes(List<Node> nodes, float ypos = 0) {
         foreach (Node n in nodes) {
-            GameObject nodeObject = Instantiate(nodePrefab, n.Position, Quaternion.identity);
-            lineObjects.Add(nodeObject);
+            DrawNode(n.Position);
         }
+    }
+
+    public void DrawNode(Vector3 position, Color? color = null) {
+        if (color == null) {
+            color = Color.red;
+        }
+
+        GameObject nodeObject = Instantiate(nodePrefab, position, Quaternion.identity);
+        nodeObject.GetComponent<MeshRenderer>().material.color = (Color)color;
+        lineObjects.Add(nodeObject);
     }
 
     public void DrawStreets(StreetMap map, float yPos = 0, Color? color = null, float? width = null) {

@@ -13,10 +13,12 @@ public class GameManager : MonoBehaviour
     MapRenderer mapRenderer;
     public TrafficManager traffic;
     TrafficRenderer trafficRenderer;
+    BuildingRenderer buildingRenderer;
 
     void Start() {
         mapRenderer = GetComponent<MapRenderer>();
         trafficRenderer = GetComponent<TrafficRenderer>();
+        buildingRenderer = GetComponent<BuildingRenderer>();
         cityGen = GetComponent<CityGen>();
         if (GetMapOnLoad) {
             InitMap();    
@@ -37,11 +39,19 @@ public class GameManager : MonoBehaviour
 
     void InitMap() {
         cityGen.GetMap(LoadFromSave);
+        
+        //draw streets
         mapRenderer.ClearLineObjects();
         if (mapRenderer.renderNodes) mapRenderer.DrawNodes(cityGen.streetMap.Nodes);
         mapRenderer.DrawStreets(cityGen.streetMap, 0f);
+        
+        //draw squares
         mapRenderer.ClearSquareObjects();
         if (mapRenderer.renderSquares) mapRenderer.DrawSquares(cityGen.buildingMap.Squares);
+
+        //draw buildings
+        buildingRenderer.ClearBuildingObjects();
+        buildingRenderer.DrawBuildings(cityGen.buildingMap.buildings, cityGen.buildingGen.buildings, cityGen.buildingMap.gridSize);
 
         traffic = new TrafficManager(cityGen.streetMap);
         traffic.ClearTraffic();

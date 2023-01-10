@@ -131,6 +131,7 @@ public class Square {
         for (int x = 0; x < building.xSize; x++) {
             for (int z = 0; z < building.zSize; z++) {
                 Vector3S currentPos = new Vector3S((x*map.gridSize)+position.x, 0, (z*map.gridSize)+position.z);
+                if (map.takenSquares.Contains(currentPos)) continue;
 
                 if (takenSquares.Count == 0) {
                     //first square
@@ -212,7 +213,6 @@ public class Square {
                     kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(-gridSize, 0, -gridSize)));
                 }
             }
-            // Debug.Log(kv.Key + " has " + kv.Value.connectedSquares.Count + " connected squares");
         }
     
         return squares;

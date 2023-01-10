@@ -67,4 +67,14 @@ public class StreetMap
         
         return streets;
     }
+
+    public void AddBuildingConnections(List<Building> buildings) {
+        foreach (Building building in buildings) {
+            foreach (var kv in building.edgeNodes) {
+                if (kv.Value != null) {
+                    nodes[(int)kv.Value].connectedBuildings.Add(building.ID);
+                }
+            }
+        }
+    }
 }

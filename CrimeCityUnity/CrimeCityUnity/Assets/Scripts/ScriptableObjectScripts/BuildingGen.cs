@@ -25,7 +25,7 @@ public class BuildingGen : ScriptableObject {
         //get bounds of city
         Bound bound = new Bound();
         foreach (Node node in nodes) {
-            bound.Update(node);
+            bound.Update(node.Position);
         }
         //extend bounds 1 roadLength
         bound.Extend(gridSize);
@@ -78,24 +78,3 @@ public class BuildingGen : ScriptableObject {
     }
 
 }
-
-public class Bound {
-        public float xMin = float.MaxValue;
-        public float xMax = 0;
-        public float zMin  = float.MaxValue;
-        public float zMax = 0;
-
-        public void Extend(float amount) {
-            xMin -= amount;
-            zMin -= amount;
-            xMax += amount;
-            zMax += amount;
-        }
-
-        public void Update(Node node) {
-            if (node.Position.x < xMin) {xMin = node.Position.x;}
-            if (node.Position.z < zMin) {zMin = node.Position.z;}
-            if (node.Position.x > xMax) {xMax = node.Position.x;}
-            if (node.Position.z > zMax) {zMax = node.Position.z;}
-        }
-    }

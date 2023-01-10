@@ -19,6 +19,8 @@ public class Node
 
     [SerializeField] public List<int> streetsWithNode = new List<int>();
 
+    public List<int> connectedBuildings = new List<int>();
+
     public Node(Vector3 position, int ID, List<int> connectedNodes = null) {
         this.position = new Vector3S(position);
         id = ID;

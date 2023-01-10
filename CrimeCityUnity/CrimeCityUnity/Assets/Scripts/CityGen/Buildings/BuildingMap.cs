@@ -9,9 +9,11 @@ public class BuildingMap {
     public Dictionary<Vector3S, Square> Squares {
         get {return squares;}
     }
+    public List<Vector3S> takenSquares = new List<Vector3S>();
+
     public float gridSize {get; private set;}
     public List<Vector3S> squaresWithRoadAccess {get; private set;} = new List<Vector3S>();
-    [SerializeField] List<Building> buildings = new List<Building>();
+    public List<Building> buildings = new List<Building>();
 
     public BuildingMap(Dictionary<Vector3, Square> squares, float gridSize) {
         SetSquares(squares);
@@ -30,8 +32,8 @@ public class BuildingMap {
     public void AddBuilding(SpawnableBuilding building, Vector3? position = null) {
         List<Vector3S> buildingSquares = Building.GetPossiblePosition(this, building, position);
         if (buildingSquares != null) {
-            Debug.Log(building.buildingTypeID + " " + buildingSquares[0].ToString() + " " + buildingSquares.Count);
-            buildings.Add(new Building(building.buildingTypeID, buildingSquares[0].Back(), buildings.Count));
+            foreach (Vector3S v in buildingSquares) {takenSquares.Add(v);}
+            buildings.Add(new Building(building.buildingTypeID, buildingSquares, this,  buildings.Count));
         }
     }
 }

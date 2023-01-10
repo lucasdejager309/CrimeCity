@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 210857760}
   - component: {fileID: 210857761}
   - component: {fileID: 210857762}
+  - component: {fileID: 210857763}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -220,9 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 0, g: 1, b: 0.92156863, a: 1}
-  width: 1
+  width: 2
   renderNodes: 0
-  renderSquares: 1
+  renderSquares: 0
   nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}
   squarePrefab: {fileID: 4936469105624147958, guid: ff8f7c468a75a1c40a87701607a02b8f, type: 3}
   lineObjects: []
@@ -260,7 +261,20 @@ MonoBehaviour:
     nodes: []
     streets: []
   buildingMap:
+    takenSquares: []
     buildings: []
+--- !u!114 &210857763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210857757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88d2e93cfa537140b178814d39d6485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,7 +520,7 @@ Camera:
   far clip plane: 1000
   field of view: 65
   orthographic: 1
-  orthographic size: 215
+  orthographic size: 296
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
