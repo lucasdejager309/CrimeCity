@@ -275,6 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88d2e93cfa537140b178814d39d6485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawEdgeNodes: 1
+  buildingObjects: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuildingRenderer : MonoBehaviour
 {
-    List<GameObject> buildingObjects = new List<GameObject>();
+    public bool drawEdgeNodes;
+    [SerializeField] List<GameObject> buildingObjects = new List<GameObject>();
 
     public void DrawBuildings(List<Building> buildings, List<SpawnableBuilding> spawnableBuildings, float scale = 1) {
         foreach (Building building in buildings) {  
@@ -14,6 +15,12 @@ public class BuildingRenderer : MonoBehaviour
                     obj.transform.localScale = new Vector3(obj.transform.localScale.x*scale, obj.transform.localScale.y*scale, obj.transform.localScale.z*scale);
                     buildingObjects.Add(obj);
                     break;
+                }
+            }
+
+            if (drawEdgeNodes) {
+                foreach (var node in building.edgeNodes) {
+                    GetComponent<MapRenderer>().DrawNode(node.Key.Back(), Color.green);
                 }
             }
         }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SpawnableBuilding
+[CreateAssetMenu(fileName = "New SpawnableBuilding", menuName = "SpawnableBuilding")]
+public class SpawnableBuilding : ScriptableObject
 {
     public string buildingTypeID;
     public int xSize;
