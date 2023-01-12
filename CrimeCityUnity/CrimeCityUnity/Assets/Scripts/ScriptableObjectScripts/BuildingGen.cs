@@ -12,8 +12,10 @@ public class BuildingGen : ScriptableObject {
         BuildingMap map = new BuildingMap(GetSquares(nodes, gridSize), gridSize);
         
         //temp
+        buildings = buildings.OrderBy(x => x.size).ToList();
+        buildings.Reverse();
         foreach (SpawnableBuilding building in buildings) {
-            map.AddBuilding(building);
+            map.SpawnBuilding(building);
         }
 
         return map;
@@ -76,5 +78,6 @@ public class BuildingGen : ScriptableObject {
 
         return squares;
     }
+
 
 }

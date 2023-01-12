@@ -29,11 +29,11 @@ public class BuildingMap {
         }
     }
 
-    public void AddBuilding(SpawnableBuilding building, Vector3? position = null) {
-        List<Vector3S> buildingSquares = Building.GetPossiblePosition(this, building, position);
-        if (buildingSquares != null) {
-            foreach (Vector3S v in buildingSquares) {takenSquares.Add(v);}
-            buildings.Add(new Building(building.buildingTypeID, buildingSquares, this,  buildings.Count));
+    public void SpawnBuilding(SpawnableBuilding spawnableBuilding, Vector3? position = null) {
+        Building building = Building.TryPlaceBuilding(this, spawnableBuilding, position);
+        if (building != null) {
+            foreach (Vector3S v in building.squares) {takenSquares.Add(v);}
+            buildings.Add(building);
         }
     }
 }

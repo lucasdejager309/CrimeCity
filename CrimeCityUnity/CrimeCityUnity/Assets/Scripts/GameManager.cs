@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         //draw buildings
         buildingRenderer.ClearBuildingObjects();
-        buildingRenderer.DrawBuildings(cityGen.buildingMap.buildings, cityGen.buildingGen.buildings, cityGen.buildingMap.gridSize);
+        buildingRenderer.DrawBuildings(cityGen.buildingMap, cityGen.buildingGen.buildings, cityGen.buildingMap.gridSize);
 
         traffic = new TrafficManager(cityGen.streetMap);
         traffic.ClearTraffic();

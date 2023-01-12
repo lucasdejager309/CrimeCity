@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0e76c0ea32e6ad4e9c4d37b90d9194d, type: 3}
   m_Name: bigger
   m_EditorClassIdentifier: 
-  buildingTypeID: zTest
-  xSize: 2
-  zSize: 1
-  prefab: {fileID: 3616701208726885020, guid: a50ef28e74f318442a65a48a91616903, type: 3}
+  buildingTypeID: bigger
+  xSize: 3
+  zSize: 3
+  prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}

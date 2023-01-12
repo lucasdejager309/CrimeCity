@@ -125,51 +125,17 @@ public class Square {
         return direction;
     }
 
-    public List<Vector3S> FitsBuilding(SpawnableBuilding building, BuildingMap map) {
-        List<Vector3S> takenSquares = new List<Vector3S>();
-
-        for (int x = 0; x < building.xSize; x++) {
-            for (int z = 0; z < building.zSize; z++) {
-                Vector3S currentPos = new Vector3S((x*map.gridSize)+position.x, 0, (z*map.gridSize)+position.z);
-                if (map.takenSquares.Contains(currentPos)) continue;
-
-                if (takenSquares.Count == 0) {
-                    //first square
-                    takenSquares.Add(currentPos);
-                } else {
-
-                    bool posIsConnected = false;
-                    foreach(Vector3S takenSquare in takenSquares) {
-                        if (map.Squares[takenSquare].connectedSquares.Contains(currentPos)) {
-                            posIsConnected = true;
-                        }
-                    }
-
-                    if (!posIsConnected) return null;
-                    else {
-                        if (!takenSquares.Contains(currentPos)) takenSquares.Add(currentPos);
-                        //check if road is in building place...
-                    }
-                }
-
-            }
-        }
-        
-        if (takenSquares.Count < building.xSize*building.zSize) return null;
-        return takenSquares;
-    }
-
     public static Dictionary <Vector3, Square> GetConnectedSquares(Dictionary <Vector3, Square> squares, float gridSize) {
         foreach (var kv in squares) {
             //x
             if (!kv.Value.streetXDirections.Contains(-1)) {
                 if (squares.ContainsKey(kv.Key + new Vector3(-gridSize, 0, 0))) {
-                    kv.Value.connectedSquares.Add(new Vector3S(kv.Key));
+                    kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(-gridSize, 0, 0)));
                 }
             }
             if (!kv.Value.streetXDirections.Contains(1)) {
                 if (squares.ContainsKey(kv.Key + new Vector3(gridSize, 0, 0))) {
-                    kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(-gridSize, 0, 0)));
+                    kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(gridSize, 0, 0)));
                 }
             }
 

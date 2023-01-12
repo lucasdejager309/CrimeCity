@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawEdgeNodes: 1
+  drawBuildings: 1
   buildingObjects: []
 --- !u!1 &705507993
 GameObject:
