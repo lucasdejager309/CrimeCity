@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a3d1c56e17c0dd47a65ae7b6b5b8319, type: 3}
-  m_Name: StreetGen
+  m_Name: OldStreetGen
   m_EditorClassIdentifier: 
   rootSentence: '[+F][+F][+F][+F]'
-  iterationLimit: 4
-  startLength: 40
+  iterationLimit: 5
+  startLength: 20
   lengthModifier: 1
   generateStreets: 1
   useBound: 1
@@ -55,8 +55,8 @@ MonoBehaviour:
     action: 2
     times: 2
     randomTimes: 1
-    minTimes: 4
-    maxTimes: 10
+    minTimes: 2
+    maxTimes: 6
   - character: 43
     action: 3
     times: 1

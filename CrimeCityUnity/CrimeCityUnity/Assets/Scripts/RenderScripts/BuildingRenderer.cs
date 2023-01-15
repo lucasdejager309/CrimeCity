@@ -6,15 +6,18 @@ public class BuildingRenderer : MonoBehaviour
 {
     public bool drawEdgeNodes;
     public bool drawBuildings;
+    [Range(0, 1)]
+    public float scaleFactor = 1f;
     [SerializeField] List<GameObject> buildingObjects = new List<GameObject>();
 
-    public void DrawBuildings(BuildingMap map, List<SpawnableBuilding> spawnableBuildings, float scale = 1) {
+    public void DrawBuildings(BuildingMap map, List<BuildingSpawnItem> spawnableBuildings, float scale = 1) {
         foreach (Building building in map.buildings) {  
             if (drawBuildings) {
-                foreach (SpawnableBuilding sB in spawnableBuildings) {
-                    if (sB.buildingTypeID == building.buildingTypeID) {
-                        GameObject obj = Instantiate(sB.prefab, building.bound.GetCenter(), Quaternion.identity);
-                        obj.transform.localScale = new Vector3(obj.transform.localScale.x*scale, obj.transform.localScale.y*scale, obj.transform.localScale.z*scale);
+                foreach (BuildingSpawnItem item in spawnableBuildings) {
+                    if (item.building.buildingTypeID == building.buildingTypeID) {
+                        GameObject obj = Instantiate(item.building.randomPrefab, building.bound.GetCenter(), Quaternion.identity);
+                        obj.name = building.buildingTypeID;
+                        obj.transform.localScale = new Vector3(obj.transform.localScale.x*map.gridSize*scaleFactor, obj.transform.localScale.y*map.gridSize*scaleFactor, obj.transform.localScale.z*map.gridSize*scaleFactor);
                         
                         if (building.direction == 'W') {
                             obj.transform.RotateAround(obj.transform.position, obj.transform.up, -90);

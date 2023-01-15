@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0e76c0ea32e6ad4e9c4d37b90d9194d, type: 3}
-  m_Name: big
+  m_Name: flatbuilding
   m_EditorClassIdentifier: 
-  buildingTypeID: big
+  buildingTypeID: flatbuilding
   xSize: 2
-  zSize: 2
-  prefab: {fileID: 3616701208726885020, guid: 0c2c799fd77c171469b1c299f3d44ad9, type: 3}
+  zSize: 1
+  prefabs:
+  - {fileID: 297789435107852089, guid: 645b35c570ede464cb991a47222eb49f, type: 3}

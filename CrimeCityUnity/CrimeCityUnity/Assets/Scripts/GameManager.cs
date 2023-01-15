@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         //draw streets
         mapRenderer.ClearLineObjects();
         if (mapRenderer.renderNodes) mapRenderer.DrawNodes(cityGen.streetMap.Nodes);
-        mapRenderer.DrawStreets(cityGen.streetMap, 0f);
+        mapRenderer.DrawStreets(cityGen.streetMap);
         
         //draw squares
         mapRenderer.ClearSquareObjects();

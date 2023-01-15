@@ -15,7 +15,11 @@ public class SpawnableBuilding : ScriptableObject
         }
     }
 
-    public GameObject prefab;
-
+    public GameObject[] prefabs;
+    public GameObject randomPrefab {
+        get {
+            return prefabs[Random.Range(0, prefabs.Length)];
+        }
+    }
 }
 

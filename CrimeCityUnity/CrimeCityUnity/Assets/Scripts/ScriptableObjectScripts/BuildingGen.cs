@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public class BuildingSpawnItem {
+    public int amount = 1;
+    public SpawnableBuilding building;
+}
+
 [CreateAssetMenu(fileName = "New BuildingGen", menuName = "BuildingGen")]
 public class BuildingGen : ScriptableObject {
     public int layers = 1;
-    public List<SpawnableBuilding> buildings = new List<SpawnableBuilding>();
+    public List<BuildingSpawnItem> buildings = new List<BuildingSpawnItem>();
 
     public BuildingMap GetMap(List<Node> nodes, float gridSize) {
         BuildingMap map = new BuildingMap(GetSquares(nodes, gridSize), gridSize);
         
         //temp
-        buildings = buildings.OrderBy(x => x.size).ToList();
+        buildings = buildings.OrderBy(x => x.building.size).ToList();
         buildings.Reverse();
-        foreach (SpawnableBuilding building in buildings) {
-            map.SpawnBuilding(building);
+        foreach (BuildingSpawnItem item in buildings) {
+            for (int i = 0; i < item.amount; i++) {
+                map.SpawnBuilding(item.building);
+            }
         }
 
         return map;

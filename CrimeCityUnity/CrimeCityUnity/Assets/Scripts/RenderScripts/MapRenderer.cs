@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapRenderer : MonoBehaviour
 {
+    public float roadHeight = 0.5f;
     public Material lineMaterial;
     public Color color;
     public float width;
@@ -31,19 +32,19 @@ public class MapRenderer : MonoBehaviour
         lineObjects.Add(nodeObject);
     }
 
-    public void DrawStreets(StreetMap map, float yPos = 0, Color? color = null, float? width = null) {
+    public void DrawStreets(StreetMap map, Color? color = null, float? width = null) {
         
         if (color == null) color = this.color;
         if (width == null) width = this.width;
 
         foreach(Road street in map.Streets) {
             
-            GameObject obj = DrawPath(street, map.Nodes, (Color)color, (float)width, yPos);
+            GameObject obj = DrawPath(street, map.Nodes, (Color)color, (float)width, roadHeight);
             obj.name = street.name;
         }
     }
 
-    public GameObject DrawPath(StreetPath path, List<Node> nodes, Color color, float width, float yPos = 0) {
+    public GameObject DrawPath(StreetPath path, List<Node> nodes, Color color, float width, float yPos = 1) {
         List<Vector3> positions = new List<Vector3>();
         
         if (path.NodeIDs.Count > 1) {
@@ -55,7 +56,7 @@ public class MapRenderer : MonoBehaviour
         return null;
     }
 
-    public GameObject CreateLineObject(List<Vector3> positions, Color color, float width, float yPos = 0) {
+    public GameObject CreateLineObject(List<Vector3> positions, Color color, float width, float yPos = 1) {
         GameObject line = new GameObject("line");
         lineObjects.Add(line);
         line.transform.position = positions[0];
