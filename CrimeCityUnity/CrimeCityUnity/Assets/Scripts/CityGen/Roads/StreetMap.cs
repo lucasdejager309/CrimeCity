@@ -24,6 +24,11 @@ public class StreetMap
 
     public static List<Road> GetStreets(StreetMap map) {
         List<Road> streets = new List<Road>();
+
+        List<int> nodesToDo = new List<int>();
+        for (int i = 0; i < map.Nodes.Count; i++) {
+            nodesToDo.Add(i);
+        }
         
         //find dead ends
         List<int> deadEnds = new List<int>();
@@ -40,6 +45,10 @@ public class StreetMap
                 Road road = Road.GetStreet(map, n);
                 ignore.Add(road.NodeIDs.Last());
                 streets.Add(road);
+                
+                for (int i = 0; i < road.NodeIDs.Count; i++) {
+                    nodesToDo.Remove(road.NodeIDs[i]);
+                }
             }
         }
 
@@ -54,6 +63,20 @@ public class StreetMap
                 Road road = Road.GetStreet(map, n, direction);
                 ignore.Add(road.NodeIDs.Last());
                 streets.Add(road);
+
+                for (int i = 0; i < road.NodeIDs.Count; i++) {
+                    nodesToDo.Remove(road.NodeIDs[i]);
+                }
+            }
+        }
+
+        while (nodesToDo.Count > 0) {
+            Road road = Road.GetStreet(map, nodesToDo.Last());
+            ignore.Add(road.NodeIDs.Last());
+            streets.Add(road);
+
+            for (int i = 0; i < road.NodeIDs.Count; i++) {
+                nodesToDo.Remove(road.NodeIDs[i]);
             }
         }
 

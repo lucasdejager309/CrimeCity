@@ -188,9 +188,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadHeight: 0.5
-  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  lineMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 0.21176471, g: 0.88235295, b: 1, a: 1}
-  width: 2
+  width: 4
   renderNodes: 0
   renderSquares: 0
   nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}

@@ -82,6 +82,7 @@ public class Road : StreetPath
                 direction = (map.Nodes[current].Position - map.Nodes[(int)previous].Position);
                 pathNodes.Add((int)possibleNode);
                 usedNodes.Add((int)possibleNode);
+                if ((int)possibleNode == start) break;
             }
         } 
 

@@ -9,7 +9,7 @@ public class Square {
 
     public Vector3S[] points {get; private set;} = new Vector3S[4];
     //              point  nodeID  
-    public Dictionary<int, int> streetNodes {get; private set;} = new Dictionary<int, int>();
+    public Dictionary<int, int> streetNodes {get; private set;} = null;
 
     public List<Vector3S> connectedSquares = new List<Vector3S>();
     
@@ -46,26 +46,30 @@ public class Square {
     }
 
     public Dictionary<int, int> GetNodesOnGrid(List<Node> nodes) {    
-        int? possibleNode = null;
-        for (int i = 0; i < points.Length; i++) {
-            possibleNode = Node.GetIDofPos(points[i].Back(), nodes);
-            if (possibleNode != null) {
-                streetNodes.Add(i, (int)possibleNode);
-                break;
+        if (streetNodes == null) {
+            streetNodes = new Dictionary<int, int>();
+            int? possibleNode = null;
+            for (int i = 0; i < points.Length; i++) {
+                possibleNode = Node.GetIDofPos(points[i].Back(), nodes);
+                if (possibleNode != null) {
+                    streetNodes.Add(i, (int)possibleNode);
+                    break;
+                }
             }
-        }
 
-        if (possibleNode == null) return null; 
-        else {
-            foreach (int c in nodes[(int)possibleNode].GetConnectedNodes()) {
-                for (int i = 0; i < points.Length; i++) {
-                    possibleNode = Node.GetIDofPos(points[i].Back(), nodes);
-                    if (possibleNode != null) {
-                        if (!streetNodes.ContainsKey(i)) streetNodes.Add(i, (int)possibleNode);
+            if (possibleNode == null) return null; 
+            else {
+                foreach (int c in nodes[(int)possibleNode].GetConnectedNodes()) {
+                    for (int i = 0; i < points.Length; i++) {
+                        possibleNode = Node.GetIDofPos(points[i].Back(), nodes);
+                        if (possibleNode != null) {
+                            if (!streetNodes.ContainsKey(i)) streetNodes.Add(i, (int)possibleNode);
+                        }
                     }
                 }
             }
         }
+        
 
         return streetNodes;
     }
