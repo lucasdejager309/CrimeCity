@@ -9,9 +9,12 @@ public class CameraController : MonoBehaviour
     public float scrollSpeed = 50f;
     public float speedModifierFactor = 70f;
 
+    public float verticalClampMin = 10;
+    public float verticalClampMax = 90;
+
     float movespeedModifier = 1f;
 
-    [SerializeField] bool mouse0Down = false;
+    bool mouse0Down = false;
 
     void Update() {
         //GET MOUSEDOWN
@@ -24,11 +27,13 @@ public class CameraController : MonoBehaviour
 
         //ROTATION
         if (mouse0Down) {
-            float rotX = Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Deg2Rad;
-            float rotY = Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Deg2Rad;
+            float rotY = transform.parent.eulerAngles.y + Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Deg2Rad;
+            float rotX = transform.eulerAngles.x + Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Deg2Rad;
 
-            transform.parent.Rotate(Vector3.up, -rotX, Space.World);
-            transform.Rotate(Vector3.right, rotY);
+            rotX = Mathf.Clamp(rotX, verticalClampMin, verticalClampMax);
+
+            transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, rotY, transform.parent.eulerAngles.z);
+            transform.localEulerAngles = new Vector3(rotX, transform.localEulerAngles.y, transform.localEulerAngles.z);
         }
 
         //ZOOM

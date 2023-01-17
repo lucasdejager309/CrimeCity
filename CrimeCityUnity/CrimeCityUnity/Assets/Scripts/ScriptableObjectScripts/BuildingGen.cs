@@ -18,9 +18,9 @@ public class BuildingGen : ScriptableObject {
         BuildingMap map = new BuildingMap(GetSquares(nodes, gridSize), gridSize);
         
         //temp
-        buildings = buildings.OrderBy(x => x.building.size).ToList();
-        buildings.Reverse();
-        foreach (BuildingSpawnItem item in buildings) {
+        List<BuildingSpawnItem> items = buildings.OrderBy(x => x.building.size).ToList();
+        items.Reverse();
+        foreach (BuildingSpawnItem item in items) {
             for (int i = 0; i < item.amount; i++) {
                 map.SpawnBuilding(item.building);
             }

@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def68b5a5ee56a845840c3e09f723bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadFromSave: 0
-  GetMapOnLoad: 0
+  LoadFromSave: 1
+  GetMapOnLoad: 1
   traffic:
     entities: []
 --- !u!4 &210857759
@@ -225,8 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
   roadTypeDetector: {fileID: 11400000, guid: d0d41a98f9cb0264292d9525728efd7b, type: 2}
-  minimumSquares: 200
   buildingGen: {fileID: 11400000, guid: 7398f428b166a994ebc7a442f86585e6, type: 2}
+  minimumSquares: 300
   streetMap:
     nodes: []
     streets: []
@@ -495,6 +495,10 @@ PrefabInstance:
     - target: {fileID: 3742099655259661367, guid: bd4aad5ab1281544ea8754fe50497fa5, type: 3}
       propertyPath: m_Name
       value: cameraContainerContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742099655404692856, guid: bd4aad5ab1281544ea8754fe50497fa5, type: 3}
+      propertyPath: verticalClampMin
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3742099655404692859, guid: bd4aad5ab1281544ea8754fe50497fa5, type: 3}
       propertyPath: m_LocalPosition.y
