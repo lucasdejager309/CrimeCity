@@ -38,7 +38,12 @@ public class GameManager : MonoBehaviour
     }
 
     void InitMap() {
-        cityGen.GetMap(LoadFromSave);
+        if (LoadFromSave) {
+            cityGen.LoadMap();
+        } else  {
+            cityGen.GetMap();
+        }
+        
         
         //draw streets
         mapRenderer.ClearLineObjects();

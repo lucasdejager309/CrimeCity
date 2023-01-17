@@ -20,6 +20,8 @@ public class BuildingMap {
         this.gridSize = gridSize;
     }
 
+    public BuildingMap() {}
+
     private void SetSquares(Dictionary<Vector3, Square> squares) {
         foreach (var entry in squares) {
             this.squares.Add(new Vector3S(entry.Key), entry.Value);

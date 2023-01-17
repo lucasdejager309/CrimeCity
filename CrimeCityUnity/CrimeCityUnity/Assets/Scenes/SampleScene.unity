@@ -133,9 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 210857759}
   - component: {fileID: 210857758}
+  - component: {fileID: 210857762}
   - component: {fileID: 210857760}
   - component: {fileID: 210857761}
-  - component: {fileID: 210857762}
   - component: {fileID: 210857763}
   m_Layer: 0
   m_Name: GameManager
@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
   roadTypeDetector: {fileID: 11400000, guid: d0d41a98f9cb0264292d9525728efd7b, type: 2}
+  minimumSquares: 200
   buildingGen: {fileID: 11400000, guid: 7398f428b166a994ebc7a442f86585e6, type: 2}
   streetMap:
     nodes: []
