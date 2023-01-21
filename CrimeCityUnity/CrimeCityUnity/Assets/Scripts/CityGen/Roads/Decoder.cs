@@ -61,8 +61,6 @@ public static class Decoder
 
                         nodes = Draw(currentPos, lastPos, nodes);
 
-                        length *= generator.lengthModifier;
-
                         break;
                     case Action.turnRight:
                         direction = Quaternion.AngleAxis(generator.GetAngle(), Vector3.up) * direction;

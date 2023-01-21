@@ -157,28 +157,28 @@ public class Square {
             }
 
             //+x+z
-            if (!kv.Value.streetXDirections.Contains(1) && !kv.Value.streetZDirections.Contains(1)) {
+            if (!kv.Value.streetXDirections.Contains(1) && !kv.Value.streetZDirections.Contains(1) && !kv.Value.streetXDirections.Contains(1)) {
                 if (squares.ContainsKey(kv.Key + new Vector3(gridSize, 0, gridSize))) {
                     kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(gridSize, 0, gridSize)));
                 }
             }
 
             //+x-z
-            if (!kv.Value.streetXDirections.Contains(1) && !kv.Value.streetZDirections.Contains(-1)) {
+            if (!kv.Value.streetXDirections.Contains(1) && !kv.Value.streetZDirections.Contains(-1) && !kv.Value.streetXDirections.Contains(1)) {
                 if (squares.ContainsKey(kv.Key + new Vector3(gridSize, 0, -gridSize))) {
                     kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(gridSize, 0, -gridSize)));
                 }
             }
 
             //-x+z
-            if (!kv.Value.streetXDirections.Contains(-1) && !kv.Value.streetZDirections.Contains(1)) {
+            if (!kv.Value.streetXDirections.Contains(-1) && !kv.Value.streetZDirections.Contains(1) && !kv.Value.streetXDirections.Contains(-1)) {
                 if (squares.ContainsKey(kv.Key + new Vector3(-gridSize, 0, gridSize))) {
                     kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(-gridSize, 0, gridSize)));
                 }
             }
 
             //-x-z
-            if (!kv.Value.streetXDirections.Contains(-1) && !kv.Value.streetZDirections.Contains(-1)) {
+            if (!kv.Value.streetXDirections.Contains(-1) && !kv.Value.streetZDirections.Contains(-1) && !kv.Value.streetXDirections.Contains(-1)) {
                 if (squares.ContainsKey(kv.Key + new Vector3(-gridSize, 0, -gridSize))) {
                     kv.Value.connectedSquares.Add(new Vector3S(kv.Key + new Vector3(-gridSize, 0, -gridSize)));
                 }
@@ -186,5 +186,50 @@ public class Square {
         }
     
         return squares;
+    }
+}
+
+[System.Serializable]
+public class SquareGroup {
+    [SerializeField] List<Vector3S> squares = new List<Vector3S>();
+    public List<Vector3S> Squares {
+        get {return squares; }
+    }
+
+    [SerializeField] List<Vector3S> squaresWithRoadAcces = new List<Vector3S>();
+    public List<Vector3S> SquaresWithRoadAcces {
+        get {return squaresWithRoadAcces; }
+    }
+
+    public SquareGroup(List<Vector3S> positions, Dictionary<Vector3S, Square> squares) {
+        foreach (Vector3S v in positions) {
+            this.squares.Add(v);
+            if (squares[v].streetNodes.Count > 0) this.squaresWithRoadAcces.Add(v);
+        }
+    }
+
+    public static SquareGroup GetFromConnected(Vector3S start, Dictionary<Vector3S, Square> squares) {
+        List<Vector3S> groupedSquares = new List<Vector3S>();
+        groupedSquares.Add(start);
+
+        List<Vector3S> toCheck = new List<Vector3S>();
+        toCheck.Add(start);
+
+        while(true) {
+            Vector3S current;
+            if (toCheck.Count != 0) current = toCheck[0];
+            else break;
+
+            foreach (Vector3S v in squares[current].connectedSquares) {
+                if (!groupedSquares.Contains(v)) {
+                    groupedSquares.Add(v);
+                    if (!toCheck.Contains(v)) toCheck.Add(v);
+                }
+            }
+
+            toCheck.Remove(current);
+        }
+
+        return new SquareGroup(groupedSquares, squares);
     }
 }

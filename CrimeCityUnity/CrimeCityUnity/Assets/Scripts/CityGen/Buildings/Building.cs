@@ -67,33 +67,19 @@ public class Building {
         return edgeNodes;
     }
 
-    public static Building TryPlaceBuilding(BuildingMap map, SpawnableBuilding spawnableBuilding, Vector3? position = null, float maxDistanceFromPos = 0) {
-        if (position == null) {
-            List<Vector3S> toTrySquares = map.squaresWithRoadAccess;
-            while (true) {
-                if (toTrySquares.Count == 0) return null;
-                Vector3S randomSquare = toTrySquares[Random.Range(0, toTrySquares.Count)];
-                toTrySquares.Remove(randomSquare);
-                if (!map.takenSquares.Contains(randomSquare)) {
-                    Building building = FitsBuilding(map.Squares[randomSquare], spawnableBuilding, map);
-                    if (building != null) {
-                        return building;
-                    }
+    public static Building TryPlaceOnMap(BuildingMap map, SpawnableBuilding spawnableBuilding) {
+        List<Vector3S> toTrySquares = map.squaresWithRoadAccess;
+        while (true) {
+            if (toTrySquares.Count == 0) return null;
+            Vector3S randomSquare = toTrySquares[Random.Range(0, toTrySquares.Count)];
+            toTrySquares.Remove(randomSquare);
+            if (!map.takenSquares.Contains(randomSquare)) {
+                Building building = FitsBuilding(map.Squares[randomSquare], spawnableBuilding, map);
+                if (building != null) {
+                    return building;
                 }
-            }        
-            // foreach (Vector3S positionS in map.squaresWithRoadAccess) {
-            //     if (map.takenSquares.Contains(positionS)) continue;
-                
-            //     Building building = FitsBuilding(map.Squares[positionS], spawnableBuilding, map);
-            //     if (building != null) {
-            //         return building;
-            //     }
-            // }
-        } else {
-            //find possible position closest to given position...
+            }
         }
-
-        return null;
     } 
 
     public static Building FitsBuilding(Square square, SpawnableBuilding spawnableBuilding, BuildingMap map) {

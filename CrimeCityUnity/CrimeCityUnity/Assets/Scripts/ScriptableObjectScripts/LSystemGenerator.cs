@@ -48,7 +48,6 @@ public class LSystemGenerator : ScriptableObject
     [Range(0, 20)]
     public int iterationLimit = 1;
     public float startLength;
-    public float lengthModifier;
     public bool generateStreets = false;
     
     [Header("Restrictions")]
@@ -57,12 +56,12 @@ public class LSystemGenerator : ScriptableObject
     public float outerBound;
     
     [Header("Angle")]
-    [SerializeField] private float angle;
-    public bool useRandomAngle;
+    private float angle = 90;
+    private bool useRandomAngle = false;
     [Range(0, 180)]
-    [SerializeField] private float minAngle;
+    private float minAngle;
     [Range(0, 180)]
-    [SerializeField] private float maxAngle;
+    private float maxAngle;
 
     [Header("Generation Logic")]
     public Rule[] rules;

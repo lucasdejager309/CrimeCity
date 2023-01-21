@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def68b5a5ee56a845840c3e09f723bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadFromSave: 1
+  LoadFromSave: 0
   GetMapOnLoad: 1
   traffic:
     entities: []
@@ -188,15 +188,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadHeight: 0.5
-  lineMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  lineMaterial: {fileID: 2100000, guid: 4d8f7e116aa1bf9438e6ceb0a70a3c67, type: 2}
   color: {r: 0.21176471, g: 0.88235295, b: 1, a: 1}
   width: 4
   renderNodes: 0
-  renderSquares: 0
+  renderStreets: 1
   nodePrefab: {fileID: 1679374075835892619, guid: dd41fd042fa88b2419e4d6e50f095072, type: 3}
-  squarePrefab: {fileID: 7309019306524218093, guid: 30d37fccf911e4a49803ce1518f03ae7, type: 3}
   lineObjects: []
-  squareObjects: []
 --- !u!114 &210857761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +224,7 @@ MonoBehaviour:
   systemGenerator: {fileID: 11400000, guid: 977b3e4ccbe6bfa4997bfa0fad18d09f, type: 2}
   roadTypeDetector: {fileID: 11400000, guid: d0d41a98f9cb0264292d9525728efd7b, type: 2}
   buildingGen: {fileID: 11400000, guid: 7398f428b166a994ebc7a442f86585e6, type: 2}
-  minimumSquares: 300
+  minimumSquares: 10
   streetMap:
     nodes: []
     streets: []
@@ -245,10 +243,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88d2e93cfa537140b178814d39d6485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawEdgeNodes: 0
-  drawBuildings: 1
+  renderEdgeNodes: 0
+  renderBuildings: 0
+  renderSquares: 1
+  squarePrefab: {fileID: 7309019306524218093, guid: 30d37fccf911e4a49803ce1518f03ae7, type: 3}
   scaleFactor: 0.7
   buildingObjects: []
+  squareObjects: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

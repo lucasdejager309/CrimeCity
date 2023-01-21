@@ -15,15 +15,10 @@ MonoBehaviour:
   rootSentence: '[+F][+F][+F][+F]'
   iterationLimit: 4
   startLength: 40
-  lengthModifier: 1
   generateStreets: 1
   useBound: 1
   boundType: 0
   outerBound: 400
-  angle: 90
-  useRandomAngle: 0
-  minAngle: 45
-  maxAngle: 90
   rules:
   - character: F
     randomResult: 1

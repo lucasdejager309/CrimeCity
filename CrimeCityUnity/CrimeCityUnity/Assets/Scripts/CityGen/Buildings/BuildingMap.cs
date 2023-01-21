@@ -31,8 +31,8 @@ public class BuildingMap {
         }
     }
 
-    public void SpawnBuilding(SpawnableBuilding spawnableBuilding, Vector3? position = null) {
-        Building building = Building.TryPlaceBuilding(this, spawnableBuilding, position);
+    public void SpawnAtRandom(SpawnableBuilding spawnableBuilding) {
+        Building building = Building.TryPlaceOnMap(this, spawnableBuilding);
         if (building != null) {
             foreach (Vector3S v in building.squares) {takenSquares.Add(v);}
             buildings.Add(building);
