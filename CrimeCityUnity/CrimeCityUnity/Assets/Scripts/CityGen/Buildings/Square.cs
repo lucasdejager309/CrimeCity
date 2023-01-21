@@ -214,7 +214,7 @@ public class SquareGroup {
 
     //ratio of squares with road access to total squares
     public float RoadAccesRatio {
-        get {return (float)(((float)ConnectedCount/(float)Count)/Count); }
+        get {return (float)(((float)ConnectedCount/(float)Count)); }
     }
 
     //temp
