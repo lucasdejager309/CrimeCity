@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadFromSave: 0
-  GetMapOnLoad: 1
+  GetMapOnLoad: 0
   traffic:
     entities: []
 --- !u!4 &210857759
@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderEdgeNodes: 0
-  renderBuildings: 0
-  renderSquares: 1
+  renderBuildings: 1
+  renderSquares: 0
   squarePrefab: {fileID: 7309019306524218093, guid: 30d37fccf911e4a49803ce1518f03ae7, type: 3}
   scaleFactor: 0.7
   buildingObjects: []

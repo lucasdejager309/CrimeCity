@@ -67,6 +67,7 @@ public class Building {
         return edgeNodes;
     }
 
+    //tries placing building randomly on map
     public static Building TryPlaceOnMap(BuildingMap map, SpawnableBuilding spawnableBuilding) {
         List<Vector3S> toTrySquares = map.squaresWithRoadAccess;
         while (true) {
@@ -82,6 +83,7 @@ public class Building {
         }
     } 
 
+    //checks if building fits on square in any rotation
     public static Building FitsBuilding(Square square, SpawnableBuilding spawnableBuilding, BuildingMap map) {
         List<Vector3S> buildingSquares = new List<Vector3S>();
         Dictionary<Vector3S, int?> edgeNodes = new Dictionary<Vector3S, int?>();

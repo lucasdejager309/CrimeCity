@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         
         //draw squares
         buildingRenderer.ClearSquareObjects();
-        if (buildingRenderer.renderSquares) buildingRenderer.DrawSquares(cityGen.buildingMap.Squares);
+        if (buildingRenderer.renderSquares) buildingRenderer.DrawSquares(cityGen.buildingMap);
 
         //draw buildings
         buildingRenderer.ClearBuildingObjects();

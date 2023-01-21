@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StreetGen
   m_EditorClassIdentifier: 
   rootSentence: '[+F][+F][+F][+F]'
-  iterationLimit: 4
+  iterationLimit: 2
   startLength: 40
   generateStreets: 1
   useBound: 1

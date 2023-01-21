@@ -46,9 +46,15 @@ public class BuildingRenderer : MonoBehaviour
         }
     }
 
-    public void DrawSquares(Dictionary<Vector3S, Square> squares) {
-        foreach (var square in squares) {
-            CreateSquareObject(square.Value, square.Key.ToString());
+    public void DrawSquares(BuildingMap map) {
+        // foreach (var square in map.Squares) {
+        //     CreateSquareObject(square.Value, square.Key.ToString());
+        // }
+
+        foreach (SquareGroup group in map.groups) {
+            foreach (Vector3S v in group.Squares) {
+                CreateSquareObject(map.Squares[v], map.Squares[v].position.ToString());
+            }
         }
     }
 

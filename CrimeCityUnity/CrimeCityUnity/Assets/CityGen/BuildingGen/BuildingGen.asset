@@ -12,16 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0980f64586b8e4f96f984acfef1c1c, type: 3}
   m_Name: BuildingGen
   m_EditorClassIdentifier: 
-  layers: 3
+  layers: 2
   buildings:
-  - amount: 50
+  - amount: 25
     building: {fileID: 11400000, guid: be49973615beebf4787db819554ce4dc, type: 2}
-  - amount: 10
+  - amount: 5
     building: {fileID: 11400000, guid: 1cbe58b5461f7b44986b392425caeb4b, type: 2}
-  - amount: 30
+  - amount: 15
     building: {fileID: 11400000, guid: 36cd36161e70fab4aaec2fb859f6b5c8, type: 2}
-  - amount: 10
+  - amount: 5
     building: {fileID: 11400000, guid: 7071daa8b31015f4f9bed65f6573bee2, type: 2}
-  testGroup:
-    squares: []
-    squaresWithRoadAcces: []

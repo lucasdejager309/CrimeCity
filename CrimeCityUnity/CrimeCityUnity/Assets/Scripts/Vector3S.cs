@@ -52,4 +52,14 @@ public class Vector3S {
 
         return hash;
     }
+
+    public static Vector3S Average(List<Vector3S> vectors) {
+        Vector3 average = new Vector3();
+
+        for (int i = 0; i < vectors.Count; i++) {
+            average += vectors[i].Back();
+        }
+
+        return new Vector3S(average.x/vectors.Count, average.y/vectors.Count, average.z/vectors.Count);
+    }
 }

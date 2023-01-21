@@ -17,14 +17,22 @@ public class BuildingGen : ScriptableObject {
     public BuildingMap GetMap(List<Node> nodes, float gridSize) {
         BuildingMap map = new BuildingMap(GetSquares(nodes, gridSize), gridSize);
         
+        List<BuildingSpawnItem> items = buildings.OrderBy(x => x.building.size).ToList();
+        items.Reverse();
+
         //temp
-        // List<BuildingSpawnItem> items = buildings.OrderBy(x => x.building.size).ToList();
-        // items.Reverse();
         // foreach (BuildingSpawnItem item in items) {
         //     for (int i = 0; i < item.amount; i++) {
         //         map.SpawnAtRandom(item.building);
         //     }
         // }
+
+        Debug.Log(map.groups.Count);
+
+        foreach (SquareGroup group in map.groups) {
+            map.FillGroup(group.ID, items);
+        }
+
 
         return map;
     }
